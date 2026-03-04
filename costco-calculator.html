@@ -6,30 +6,19 @@
 <title>COSTCO CART - ショッピング計算</title>
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    min-height: 100vh;
-    background: linear-gradient(160deg, #003087 0%, #001a4d 100%);
-    font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif;
-    padding-bottom: 80px;
-    color: #fff;
-  }
+  body { min-height: 100vh; background: linear-gradient(160deg, #003087 0%, #001a4d 100%); font-family: 'Hiragino Sans', 'Noto Sans JP', sans-serif; padding-bottom: 80px; color: #fff; }
   input { -webkit-appearance: none; }
   input[type=number] { -moz-appearance: textfield; }
-  input::-webkit-outer-spin-button,
-  input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+  input::-webkit-outer-spin-button, input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-  #header {
-    background: linear-gradient(90deg, #003087, #0046BE);
-    padding: 20px 20px 16px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.4);
-    position: sticky; top: 0; z-index: 100;
-  }
+  #header { background: linear-gradient(90deg, #003087, #0046BE); padding: 20px 20px 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.4); position: sticky; top: 0; z-index: 100; }
   .header-inner { max-width: 480px; margin: 0 auto; }
   .header-row { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
   .header-logo { font-size: 28px; }
   .header-title { font-size: 20px; font-weight: 900; letter-spacing: 1px; }
   .header-sub { color: #99b8ff; font-size: 11px; letter-spacing: 2px; margin-top: 2px; }
-  .header-total { margin-left: auto; text-align: right; }
+  .header-right { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+  .header-total { text-align: right; }
   .header-total-label { color: #cdd8ff; font-size: 11px; }
   .header-total-amount { font-size: 26px; font-weight: 900; line-height: 1; transition: color 0.3s; }
   .budget-bar-wrap { margin-top: 8px; }
@@ -38,111 +27,41 @@
   .budget-bar-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; }
 
   #main { max-width: 480px; margin: 0 auto; padding: 16px 16px 0; }
-
-  .card {
-    background: rgba(255,255,255,0.07);
-    border-radius: 14px; padding: 12px 16px; margin-bottom: 14px;
-    border: 1px solid rgba(255,255,255,0.12);
-  }
-  .card-form {
-    background: rgba(255,255,255,0.09);
-    border-radius: 16px; padding: 16px; margin-bottom: 16px;
-    border: 1px solid rgba(255,255,255,0.15);
-  }
+  .card { background: rgba(255,255,255,0.07); border-radius: 14px; padding: 12px 16px; margin-bottom: 14px; border: 1px solid rgba(255,255,255,0.12); }
+  .card-form { background: rgba(255,255,255,0.09); border-radius: 16px; padding: 16px; margin-bottom: 16px; border: 1px solid rgba(255,255,255,0.15); }
   .budget-display { cursor: pointer; display: flex; align-items: center; gap: 8px; }
   .budget-edit { display: flex; gap: 8px; align-items: center; }
-  .budget-edit input {
-    flex: 1; background: rgba(255,255,255,0.1);
-    border: 1px solid rgba(255,255,255,0.3); border-radius: 8px;
-    padding: 6px 10px; color: #fff; font-size: 16px; outline: none;
-  }
-  .btn-small {
-    background: #0046BE; color: #fff; border: none; border-radius: 8px;
-    padding: 6px 14px; cursor: pointer; font-weight: 700; font-size: 13px;
-  }
+  .budget-edit input { flex: 1; background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.3); border-radius: 8px; padding: 6px 10px; color: #fff; font-size: 16px; outline: none; }
+  .btn-small { background: #0046BE; color: #fff; border: none; border-radius: 8px; padding: 6px 14px; cursor: pointer; font-weight: 700; font-size: 13px; }
+  .btn-icon { background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: #fff; padding: 6px 10px; cursor: pointer; font-size: 18px; }
   .form-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .form-label { color: #99b8ff; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
-  .btn-camera {
-    display: flex; align-items: center; gap: 6px;
-    background: linear-gradient(135deg, #003087, #0046BE);
-    border: 1px solid rgba(127,200,255,0.4); border-radius: 10px;
-    padding: 8px 14px; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer;
-    box-shadow: 0 2px 12px rgba(0,70,190,0.4);
-  }
+  .btn-camera { display: flex; align-items: center; gap: 6px; background: linear-gradient(135deg, #003087, #0046BE); border: 1px solid rgba(127,200,255,0.4); border-radius: 10px; padding: 8px 14px; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer; box-shadow: 0 2px 12px rgba(0,70,190,0.4); }
   .cat-row { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
-  .cat-btn {
-    padding: 5px 10px; border-radius: 20px; border: 2px solid transparent;
-    background: rgba(255,255,255,0.05); color: #aaa;
-    font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;
-  }
-  .input-text {
-    width: 100%; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
-    padding: 10px 14px; color: #fff; font-size: 15px; outline: none;
-    margin-bottom: 8px;
-  }
+  .cat-btn { padding: 5px 10px; border-radius: 20px; border: 2px solid transparent; background: rgba(255,255,255,0.05); color: #aaa; font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s; }
+  .input-text { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 15px; outline: none; margin-bottom: 8px; }
   .input-row { display: flex; gap: 8px; margin-bottom: 8px; }
   .price-wrap { position: relative; flex: 2; }
-  .price-symbol {
-    position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
-    color: #99b8ff; font-size: 15px; font-weight: 700;
-  }
-  .input-price {
-    width: 100%; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
-    padding: 10px 14px 10px 28px; color: #fff; font-size: 15px; outline: none;
-  }
-  .input-qty {
-    flex: 1; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
-    padding: 10px 14px; color: #fff; font-size: 15px; outline: none;
-  }
-  .btn-add {
-    background: linear-gradient(135deg, #0046BE, #0066ff);
-    color: #fff; border: none; border-radius: 10px;
-    padding: 10px 18px; font-size: 22px; cursor: pointer;
-    font-weight: 900; box-shadow: 0 4px 14px rgba(0,70,190,0.5); flex-shrink: 0;
-  }
-
-  /* Tax toggle */
+  .price-symbol { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: #99b8ff; font-size: 15px; font-weight: 700; }
+  .input-price { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 10px 14px 10px 28px; color: #fff; font-size: 15px; outline: none; }
+  .input-qty { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 10px 14px; color: #fff; font-size: 15px; outline: none; }
+  .btn-add { background: linear-gradient(135deg, #0046BE, #0066ff); color: #fff; border: none; border-radius: 10px; padding: 10px 18px; font-size: 22px; cursor: pointer; font-weight: 900; box-shadow: 0 4px 14px rgba(0,70,190,0.5); flex-shrink: 0; }
   .tax-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
   .tax-label { color: #99b8ff; font-size: 12px; }
   .tax-toggle { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); }
-  .tax-btn {
-    padding: 6px 14px; border: none; cursor: pointer;
-    font-size: 13px; font-weight: 700; transition: all 0.2s;
-    background: rgba(255,255,255,0.05); color: #aaa;
-  }
+  .tax-btn { padding: 6px 14px; border: none; cursor: pointer; font-size: 13px; font-weight: 700; transition: all 0.2s; background: rgba(255,255,255,0.05); color: #aaa; }
   .tax-btn.active { background: #0046BE; color: #fff; }
-
-  /* Discount row */
   .discount-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
   .discount-label { color: #99b8ff; font-size: 12px; flex-shrink: 0; }
   .discount-type { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
-  .discount-type-btn {
-    padding: 6px 10px; border: none; cursor: pointer;
-    font-size: 12px; font-weight: 700; transition: all 0.2s;
-    background: rgba(255,255,255,0.05); color: #aaa;
-  }
+  .discount-type-btn { padding: 6px 10px; border: none; cursor: pointer; font-size: 12px; font-weight: 700; transition: all 0.2s; background: rgba(255,255,255,0.05); color: #aaa; }
   .discount-type-btn.active { background: #c85000; color: #fff; }
   .discount-input-wrap { position: relative; flex: 1; }
-  .discount-suffix {
-    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
-    color: #99b8ff; font-size: 13px; font-weight: 700; pointer-events: none;
-  }
-  .input-discount {
-    width: 100%; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
-    padding: 8px 28px 8px 12px; color: #fff; font-size: 14px; outline: none;
-  }
-
+  .discount-suffix { position: absolute; right: 10px; top: 50%; transform: translateY(-50%); color: #99b8ff; font-size: 13px; font-weight: 700; pointer-events: none; }
+  .input-discount { width: 100%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; padding: 8px 28px 8px 12px; color: #fff; font-size: 14px; outline: none; }
   .empty { text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.25); }
   .empty-icon { font-size: 48px; margin-bottom: 12px; }
-
-  .item {
-    background: rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
-    border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s;
-  }
+  .item { background: rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px; border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s; }
   .item.new { background: rgba(127,255,0,0.12); border-color: rgba(127,255,0,0.4); }
   .item-top { display: flex; align-items: center; gap: 10px; }
   .item-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
@@ -152,22 +71,11 @@
   .item-right { text-align: right; flex-shrink: 0; }
   .item-total { color: #7FFF00; font-size: 15px; font-weight: 800; }
   .item-original { color: #888; font-size: 11px; text-decoration: line-through; }
-  .item-discount-badge { color: #ff9944; font-size: 11px; font-weight: 700; }
   .item-btns { display: flex; gap: 4px; margin-top: 4px; justify-content: flex-end; }
-  .btn-qty {
-    width: 24px; height: 24px; background: rgba(255,255,255,0.1);
-    border: none; border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px; font-weight: 700;
-  }
-  .btn-del { width: 24px; height: 24px; background: rgba(255,80,80,0.2); border: none; border-radius: 6px; color: #ff6b6b; cursor: pointer; font-size: 14px; }
-  .btn-discount-edit {
-    height: 24px; padding: 0 8px; background: rgba(200,80,0,0.25);
-    border: none; border-radius: 6px; color: #ff9944; cursor: pointer; font-size: 11px; font-weight: 700;
-  }
-
-  .summary {
-    background: rgba(0,70,190,0.25); border: 1px solid rgba(0,102,255,0.4);
-    border-radius: 16px; padding: 16px; margin-top: 8px;
-  }
+  .btn-qty { width: 24px; height: 24px; background: rgba(255,255,255,0.1); border: none; border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px; font-weight: 700; }
+  .btn-del { height: 24px; padding: 0 6px; background: rgba(255,80,80,0.2); border: none; border-radius: 6px; color: #ff6b6b; cursor: pointer; font-size: 12px; }
+  .btn-discount-edit { height: 24px; padding: 0 8px; background: rgba(200,80,0,0.25); border: none; border-radius: 6px; color: #ff9944; cursor: pointer; font-size: 11px; font-weight: 700; }
+  .summary { background: rgba(0,70,190,0.25); border: 1px solid rgba(0,102,255,0.4); border-radius: 16px; padding: 16px; margin-top: 8px; }
   .summary-row { display: flex; justify-content: space-between; margin-bottom: 8px; }
   .summary-label { color: #99b8ff; font-size: 14px; }
   .summary-val { font-size: 14px; font-weight: 700; }
@@ -176,115 +84,101 @@
   .summary-total-val { font-size: 24px; font-weight: 900; }
   .summary-budget-msg { margin-top: 8px; padding: 8px 12px; border-radius: 8px; text-align: center; font-weight: 700; font-size: 14px; }
   .summary-count { text-align: center; margin-top: 10px; color: #5577cc; font-size: 12px; }
+  .btn-save-history { width: 100%; margin-top: 12px; padding: 14px; background: linear-gradient(135deg, #1a5c00, #2a9200); border: none; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 14px rgba(42,146,0,0.4); }
 
-  /* Settings Modal */
-  #settings-modal {
-    display: none; position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,0.85); flex-direction: column;
-  }
-  #settings-modal.open { display: flex; }
-
-  /* Camera Modal */
-  #camera-modal {
-    display: none; position: fixed; inset: 0; z-index: 200;
-    background: rgba(0,0,0,0.93); flex-direction: column;
-  }
-  #camera-modal.open { display: flex; }
-  .modal-header {
-    padding: 16px 20px; display: flex; align-items: center; justify-content: space-between;
-    background: rgba(0,26,77,0.95); border-bottom: 1px solid rgba(255,255,255,0.1);
-  }
+  /* Modal base */
+  .modal-base { display: none; position: fixed; inset: 0; z-index: 200; background: rgba(0,0,0,0.93); flex-direction: column; }
+  .modal-base.open { display: flex; }
+  .modal-header { padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; background: rgba(0,26,77,0.95); border-bottom: 1px solid rgba(255,255,255,0.1); }
   .modal-header-title { font-weight: 800; font-size: 16px; }
   .modal-header-sub { color: #99b8ff; font-size: 11px; margin-top: 2px; }
-  .btn-close {
-    background: rgba(255,255,255,0.1); border: none; border-radius: 8px;
-    color: #fff; padding: 8px 14px; cursor: pointer; font-size: 13px;
-  }
+  .btn-close { background: rgba(255,255,255,0.1); border: none; border-radius: 8px; color: #fff; padding: 8px 14px; cursor: pointer; font-size: 13px; }
   .modal-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 16px; overflow-y: auto; }
-  .viewfinder {
-    width: 100%; max-width: 440px; border-radius: 16px; overflow: hidden;
-    border: 2px solid rgba(255,255,255,0.15); position: relative;
-    background: #000; aspect-ratio: 4/3;
-  }
+  .modal-body-top { flex: 1; overflow-y: auto; padding: 20px; }
+
+  /* Camera */
+  .viewfinder { width: 100%; max-width: 440px; border-radius: 16px; overflow: hidden; border: 2px solid rgba(255,255,255,0.15); position: relative; background: #000; aspect-ratio: 4/3; }
   #camera-video { width: 100%; height: 100%; object-fit: cover; display: block; }
   #camera-preview { width: 100%; height: 100%; object-fit: cover; display: none; }
   .scan-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
-  .scan-frame {
-    width: 72%; height: 42%; border: 2px solid rgba(127,255,0,0.7); border-radius: 12px;
-    box-shadow: 0 0 0 9999px rgba(0,0,0,0.4); position: relative;
-  }
+  .scan-frame { width: 72%; height: 42%; border: 2px solid rgba(127,255,0,0.7); border-radius: 12px; box-shadow: 0 0 0 9999px rgba(0,0,0,0.4); position: relative; }
   .corner { position: absolute; width: 22px; height: 22px; }
-  .corner-tl { top: -1px; left: -1px; border-top: 3px solid #7FFF00; border-left: 3px solid #7FFF00; border-radius: 8px 0 0 0; }
-  .corner-tr { top: -1px; right: -1px; border-top: 3px solid #7FFF00; border-right: 3px solid #7FFF00; border-radius: 0 8px 0 0; }
-  .corner-bl { bottom: -1px; left: -1px; border-bottom: 3px solid #7FFF00; border-left: 3px solid #7FFF00; border-radius: 0 0 0 8px; }
-  .corner-br { bottom: -1px; right: -1px; border-bottom: 3px solid #7FFF00; border-right: 3px solid #7FFF00; border-radius: 0 0 8px 0; }
-  .analyzing-overlay {
-    display: none; position: absolute; inset: 0; background: rgba(0,26,77,0.75);
-    flex-direction: column; align-items: center; justify-content: center; gap: 16px;
-  }
+  .corner-tl { top:-1px;left:-1px;border-top:3px solid #7FFF00;border-left:3px solid #7FFF00;border-radius:8px 0 0 0; }
+  .corner-tr { top:-1px;right:-1px;border-top:3px solid #7FFF00;border-right:3px solid #7FFF00;border-radius:0 8px 0 0; }
+  .corner-bl { bottom:-1px;left:-1px;border-bottom:3px solid #7FFF00;border-left:3px solid #7FFF00;border-radius:0 0 0 8px; }
+  .corner-br { bottom:-1px;right:-1px;border-bottom:3px solid #7FFF00;border-right:3px solid #7FFF00;border-radius:0 0 8px 0; }
+  .analyzing-overlay { display: none; position: absolute; inset: 0; background: rgba(0,26,77,0.75); flex-direction: column; align-items: center; justify-content: center; gap: 16px; }
   .analyzing-overlay.show { display: flex; }
-  .spinner {
-    width: 52px; height: 52px;
-    border: 4px solid rgba(255,255,255,0.15); border-top: 4px solid #7FFF00;
-    border-radius: 50%; animation: spin 0.8s linear infinite;
-  }
+  .spinner { width: 52px; height: 52px; border: 4px solid rgba(255,255,255,0.15); border-top: 4px solid #7FFF00; border-radius: 50%; animation: spin 0.8s linear infinite; }
   @keyframes spin { to { transform: rotate(360deg); } }
-  .result-card {
-    display: none; width: 100%; max-width: 440px;
-    background: rgba(0,70,190,0.25); border: 1px solid rgba(0,102,255,0.5);
-    border-radius: 16px; padding: 20px;
-  }
+  .result-card { display: none; width: 100%; max-width: 440px; background: rgba(0,70,190,0.25); border: 1px solid rgba(0,102,255,0.5); border-radius: 16px; padding: 20px; }
   .result-card.show { display: block; }
   #result-preview { width: 100%; border-radius: 10px; margin-bottom: 16px; max-height: 160px; object-fit: cover; }
-  .error-card {
-    display: none; background: rgba(255,0,0,0.13); border: 1px solid rgba(255,100,100,0.4);
-    border-radius: 14px; padding: 24px; text-align: center;
-    color: #ff9999; max-width: 380px; line-height: 1.8; font-size: 14px; width: 100%;
-    white-space: pre-line;
-  }
+  .error-card { display: none; background: rgba(255,0,0,0.13); border: 1px solid rgba(255,100,100,0.4); border-radius: 14px; padding: 24px; text-align: center; color: #ff9999; max-width: 380px; line-height: 1.8; font-size: 14px; width: 100%; white-space: pre-line; }
   .error-card.show { display: block; }
-  .modal-footer {
-    padding: 16px 20px; display: flex; gap: 10px;
-    background: rgba(0,0,0,0.6); border-top: 1px solid rgba(255,255,255,0.08);
-  }
-  .btn-retake {
-    flex: 1; padding: 14px; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 12px;
-    color: #fff; font-size: 15px; font-weight: 700; cursor: pointer;
-  }
-  .btn-capture {
-    flex: 1; padding: 16px; background: linear-gradient(135deg, #0046BE, #0066ff);
-    border: none; border-radius: 14px; color: #fff;
-    font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 20px rgba(0,70,190,0.5);
-  }
-  .btn-analyze {
-    flex: 2; padding: 14px; background: linear-gradient(135deg, #0046BE, #0066ff);
-    border: none; border-radius: 12px; color: #fff;
-    font-size: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 16px rgba(0,70,190,0.5);
-  }
-  .btn-confirm {
-    flex: 2; padding: 14px; background: linear-gradient(135deg, #1a7a00, #2db800);
-    border: none; border-radius: 12px; color: #fff;
-    font-size: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 16px rgba(45,184,0,0.4);
-  }
-  .settings-inner { max-width: 480px; width: 100%; margin: 0 auto; padding: 20px; }
+  .modal-footer { padding: 16px 20px; display: flex; gap: 10px; background: rgba(0,0,0,0.6); border-top: 1px solid rgba(255,255,255,0.08); }
+  .btn-retake { flex: 1; padding: 14px; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 12px; color: #fff; font-size: 15px; font-weight: 700; cursor: pointer; }
+  .btn-capture { flex: 1; padding: 16px; background: linear-gradient(135deg, #0046BE, #0066ff); border: none; border-radius: 14px; color: #fff; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 20px rgba(0,70,190,0.5); }
+  .btn-analyze { flex: 2; padding: 14px; background: linear-gradient(135deg, #0046BE, #0066ff); border: none; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 900; cursor: pointer; }
+  .btn-confirm { flex: 2; padding: 14px; background: linear-gradient(135deg, #1a7a00, #2db800); border: none; border-radius: 12px; color: #fff; font-size: 15px; font-weight: 900; cursor: pointer; }
+
+  /* Settings */
+  .settings-inner { max-width: 480px; width: 100%; margin: 0 auto; }
   .settings-section-title { color: #99b8ff; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; margin-top: 20px; }
   .settings-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
-  .settings-input {
-    flex: 1; background: rgba(255,255,255,0.08);
-    border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
-    padding: 8px 12px; color: #fff; font-size: 14px; outline: none;
-  }
+  .settings-input { flex: 1; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.2); border-radius: 8px; padding: 8px 12px; color: #fff; font-size: 14px; outline: none; }
+
+  /* History */
+  .history-card { background: rgba(255,255,255,0.06); border-radius: 14px; padding: 14px 16px; margin-bottom: 10px; border: 1px solid rgba(255,255,255,0.1); }
+  .history-card-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+  .history-store { font-size: 15px; font-weight: 800; }
+  .history-date { color: #99b8ff; font-size: 11px; margin-top: 2px; }
+  .history-total { color: #7FFF00; font-size: 18px; font-weight: 900; flex-shrink: 0; }
+  .history-items-count { color: #5577cc; font-size: 11px; margin-bottom: 8px; }
+  .history-item-row { display: flex; justify-content: space-between; font-size: 12px; padding: 4px 0; border-bottom: 1px solid rgba(255,255,255,0.05); }
+  .history-item-row:last-child { border-bottom: none; }
+  .history-item-name { color: #cdd8ff; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-right: 8px; }
+  .history-item-price { color: #7FFF00; flex-shrink: 0; }
+  .history-btns { display: flex; gap: 8px; margin-top: 10px; }
+  .btn-history-load { flex: 1; padding: 8px; background: linear-gradient(135deg, #003087, #0046BE); border: 1px solid rgba(127,200,255,0.3); border-radius: 8px; color: #fff; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .btn-history-del { padding: 8px 12px; background: rgba(255,80,80,0.15); border: 1px solid rgba(255,80,80,0.2); border-radius: 8px; color: #ff6b6b; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .history-toggle { cursor: pointer; color: #5577cc; font-size: 11px; text-align: center; margin-top: 6px; }
 </style>
 </head>
 <body>
 
-<!-- Settings Modal -->
-<div id="settings-modal">
+<!-- Save History Modal -->
+<div id="save-modal" class="modal-base">
   <div class="modal-header">
-    <div>
-      <div class="modal-header-title">⚙️ 設定</div>
+    <div><div class="modal-header-title">💾 買い物を保存</div></div>
+    <button class="btn-close" onclick="closeSaveModal()">✕ 閉じる</button>
+  </div>
+  <div class="modal-body" style="justify-content:flex-start;padding-top:30px;">
+    <div style="width:100%;max-width:440px;">
+      <div style="color:#99b8ff;font-size:12px;margin-bottom:6px;">店名</div>
+      <input type="text" id="save-store-name" class="input-text" placeholder="例: コストコ幕張" style="margin-bottom:16px;">
+      <div style="color:#99b8ff;font-size:12px;margin-bottom:6px;">日時</div>
+      <div id="save-datetime" style="color:#fff;font-size:15px;font-weight:700;background:rgba(255,255,255,0.08);border-radius:10px;padding:10px 14px;margin-bottom:20px;"></div>
+      <div style="color:#99b8ff;font-size:12px;margin-bottom:6px;">合計金額</div>
+      <div id="save-total" style="color:#7FFF00;font-size:24px;font-weight:900;margin-bottom:24px;"></div>
+      <button onclick="confirmSave()" style="width:100%;padding:16px;background:linear-gradient(135deg,#1a5c00,#2a9200);border:none;border-radius:12px;color:#fff;font-size:16px;font-weight:900;cursor:pointer;box-shadow:0 4px 14px rgba(42,146,0,0.4);">💾 保存する</button>
     </div>
+  </div>
+</div>
+
+<!-- History Modal -->
+<div id="history-modal" class="modal-base">
+  <div class="modal-header">
+    <div><div class="modal-header-title">📋 買い物履歴</div></div>
+    <button class="btn-close" onclick="closeHistory()">✕ 閉じる</button>
+  </div>
+  <div class="modal-body-top" id="history-list-container"></div>
+</div>
+
+<!-- Settings Modal -->
+<div id="settings-modal" class="modal-base">
+  <div class="modal-header">
+    <div><div class="modal-header-title">⚙️ 設定</div></div>
     <button class="btn-close" onclick="closeSettings()">✕ 閉じる</button>
   </div>
   <div class="modal-body" style="justify-content:flex-start;">
@@ -295,16 +189,15 @@
         <button class="btn-small" onclick="saveApiKey()">保存</button>
       </div>
       <div id="apikey-status" style="color:#5577cc;font-size:11px;margin-bottom:16px;">APIキーを入力して「保存」を押してください</div>
-
       <div class="settings-section-title">🧾 消費税率設定</div>
-      <div style="color:#cdd8ff;font-size:12px;margin-bottom:8px;">デフォルト税率（商品追加時の初期値）</div>
+      <div style="color:#cdd8ff;font-size:12px;margin-bottom:8px;">デフォルト税率</div>
       <div class="settings-row">
         <div class="tax-toggle">
           <button class="tax-btn" id="default-tax-8" onclick="setDefaultTax(8)">8%</button>
           <button class="tax-btn" id="default-tax-10" onclick="setDefaultTax(10)">10%</button>
         </div>
       </div>
-      <div style="color:#cdd8ff;font-size:12px;margin-bottom:8px;margin-top:12px;">カスタム税率（8%・10%以外の場合）</div>
+      <div style="color:#cdd8ff;font-size:12px;margin-bottom:8px;margin-top:12px;">カスタム税率</div>
       <div class="settings-row">
         <div style="position:relative;flex:1;">
           <input type="number" id="custom-tax-input" class="settings-input" placeholder="例: 12" style="padding-right:28px;">
@@ -318,7 +211,7 @@
 </div>
 
 <!-- Camera Modal -->
-<div id="camera-modal">
+<div id="camera-modal" class="modal-base">
   <div class="modal-header">
     <div>
       <div class="modal-header-title">📷 値札スキャン</div>
@@ -332,10 +225,8 @@
       <img id="camera-preview" alt="captured">
       <div class="scan-overlay" id="scan-overlay">
         <div class="scan-frame">
-          <div class="corner corner-tl"></div>
-          <div class="corner corner-tr"></div>
-          <div class="corner corner-bl"></div>
-          <div class="corner corner-br"></div>
+          <div class="corner corner-tl"></div><div class="corner corner-tr"></div>
+          <div class="corner corner-bl"></div><div class="corner corner-br"></div>
         </div>
       </div>
       <div class="analyzing-overlay" id="analyzing-overlay">
@@ -369,8 +260,9 @@
         <div class="header-title">COSTCO CART</div>
         <div class="header-sub">ショッピング合計計算</div>
       </div>
-      <div style="display:flex;align-items:center;gap:10px;margin-left:auto;">
-        <button onclick="openSettings()" style="background:rgba(255,255,255,0.1);border:none;border-radius:8px;color:#fff;padding:6px 10px;cursor:pointer;font-size:18px;">⚙️</button>
+      <div class="header-right">
+        <button class="btn-icon" onclick="openHistory()">📋</button>
+        <button class="btn-icon" onclick="openSettings()">⚙️</button>
         <div class="header-total">
           <div class="header-total-label">合計（税込）</div>
           <div class="header-total-amount" id="header-total">¥0</div>
@@ -378,9 +270,7 @@
       </div>
     </div>
     <div class="budget-bar-wrap" id="budget-bar-wrap" style="display:none;">
-      <div class="budget-bar-bg">
-        <div class="budget-bar-fill" id="budget-bar-fill"></div>
-      </div>
+      <div class="budget-bar-bg"><div class="budget-bar-fill" id="budget-bar-fill"></div></div>
       <div class="budget-bar-labels">
         <span style="color:#99b8ff;" id="budget-bar-left">予算: ¥0</span>
         <span id="budget-bar-right" style="font-weight:700;"></span>
@@ -390,7 +280,6 @@
 </div>
 
 <div id="main">
-  <!-- Budget -->
   <div class="card">
     <div class="budget-display" id="budget-display" onclick="editBudget()">
       <span style="font-size:16px;">💰</span>
@@ -405,13 +294,10 @@
     </div>
   </div>
 
-  <!-- Add Form -->
   <div class="card-form">
     <div class="form-header">
       <div class="form-label">＋ 商品を追加</div>
-      <button class="btn-camera" onclick="openCamera()">
-        <span style="font-size:15px;">📷</span> 値札を撮影
-      </button>
+      <button class="btn-camera" onclick="openCamera()"><span style="font-size:15px;">📷</span> 値札を撮影</button>
     </div>
     <div class="cat-row" id="cat-row"></div>
     <input class="input-text" type="text" id="item-name" placeholder="商品名" onkeydown="if(event.key==='Enter')addItem()">
@@ -423,14 +309,10 @@
       <input class="input-qty" type="number" id="item-qty" value="1" min="1" onkeydown="if(event.key==='Enter')addItem()">
       <button class="btn-add" onclick="addItem()">+</button>
     </div>
-
-    <!-- Tax rate toggle -->
     <div class="tax-row">
       <span class="tax-label">消費税:</span>
       <div class="tax-toggle" id="tax-toggle-form"></div>
     </div>
-
-    <!-- Discount -->
     <div class="discount-row">
       <span class="discount-label">割引:</span>
       <div class="discount-type">
@@ -444,7 +326,6 @@
     </div>
   </div>
 
-  <!-- Item list -->
   <div id="item-list">
     <div class="empty">
       <div class="empty-icon">🛒</div>
@@ -452,13 +333,12 @@
     </div>
   </div>
 
-  <!-- Summary -->
   <div class="summary" id="summary" style="display:none;">
     <div class="summary-row">
       <span class="summary-label">小計（税抜・割引後）</span>
       <span class="summary-val" id="sum-subtotal"></span>
     </div>
-    <div class="summary-row">
+    <div class="summary-row" id="sum-discount-row">
       <span class="summary-label">割引合計</span>
       <span class="summary-val" id="sum-discount" style="color:#ff9944;"></span>
     </div>
@@ -472,6 +352,7 @@
     </div>
     <div class="summary-budget-msg" id="sum-budget-msg" style="display:none;"></div>
     <div class="summary-count" id="sum-count"></div>
+    <button class="btn-save-history" onclick="openSaveModal()">💾 この買い物を保存する</button>
   </div>
 </div>
 
@@ -484,27 +365,22 @@ const CATEGORIES = [
   { id:"other",    label:"その他", emoji:"📦", color:"#FBE9E7", accent:"#BF360C" },
 ];
 
-let items = [];
-let selectedCat = "food";
-let budget = 0;
-let idCnt = 1;
-let currentStream = null;
-let capturedDataUrl = null;
-let scanResult = null;
-let discountType = "pct"; // "pct" or "amt"
-let defaultTax = 10;
-let customTaxRates = [];
-let selectedTax = 10; // for current form
+let items = [], selectedCat = "food", budget = 0, idCnt = 1;
+let currentStream = null, capturedDataUrl = null, scanResult = null;
+let discountType = "pct", defaultTax = 10, customTaxRates = [], selectedTax = 10;
+let shoppingHistory = [];
 
 function yen(v) { return "¥" + Math.round(v).toLocaleString("ja-JP"); }
 
-// ── Tax Rates ──
-function getAllTaxRates() {
-  const base = [8, 10];
-  const all = [...new Set([...base, ...customTaxRates])].sort((a,b)=>a-b);
-  return all;
+function formatDateTime(iso) {
+  const d = new Date(iso);
+  return `${d.getFullYear()}/${String(d.getMonth()+1).padStart(2,'0')}/${String(d.getDate()).padStart(2,'0')} ${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}`;
 }
 
+// ── Tax ──
+function getAllTaxRates() {
+  return [...new Set([8, 10, ...customTaxRates])].sort((a,b)=>a-b);
+}
 function buildTaxToggles() {
   const container = document.getElementById("tax-toggle-form");
   container.innerHTML = "";
@@ -516,246 +392,165 @@ function buildTaxToggles() {
     container.appendChild(btn);
   });
 }
-
-function selectTax(rate) {
-  selectedTax = rate;
-  buildTaxToggles();
-}
-
+function selectTax(rate) { selectedTax = rate; buildTaxToggles(); }
 function setDefaultTax(rate) {
-  defaultTax = rate;
-  selectedTax = rate;
+  defaultTax = rate; selectedTax = rate;
   document.getElementById("default-tax-8").className = "tax-btn" + (rate === 8 ? " active" : "");
   document.getElementById("default-tax-10").className = "tax-btn" + (rate === 10 ? " active" : "");
   buildTaxToggles();
   localStorage.setItem("default_tax", rate);
 }
-
 function saveCustomTax() {
   const val = parseFloat(document.getElementById("custom-tax-input").value);
   if (isNaN(val) || val <= 0 || val >= 100) return;
-  if (!customTaxRates.includes(val)) {
-    customTaxRates.push(val);
-    localStorage.setItem("custom_tax_rates", JSON.stringify(customTaxRates));
-  }
+  if (!customTaxRates.includes(val)) { customTaxRates.push(val); localStorage.setItem("custom_tax_rates", JSON.stringify(customTaxRates)); }
   document.getElementById("custom-tax-input").value = "";
-  buildTaxToggles();
-  renderCustomTaxList();
+  buildTaxToggles(); renderCustomTaxList();
 }
-
 function removeCustomTax(rate) {
   customTaxRates = customTaxRates.filter(r => r !== rate);
   localStorage.setItem("custom_tax_rates", JSON.stringify(customTaxRates));
-  if (selectedTax === rate) { selectedTax = defaultTax; }
-  buildTaxToggles();
-  renderCustomTaxList();
+  if (selectedTax === rate) selectedTax = defaultTax;
+  buildTaxToggles(); renderCustomTaxList();
 }
-
 function renderCustomTaxList() {
   const el = document.getElementById("custom-tax-list");
-  if (customTaxRates.length === 0) { el.innerHTML = ""; return; }
   el.innerHTML = customTaxRates.map(r =>
-    `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;margin:2px;font-size:12px;">
-      ${r}%
-      <button onclick="removeCustomTax(${r})" style="background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:12px;padding:0;">✕</button>
-    </span>`
+    `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;margin:2px;font-size:12px;">${r}%<button onclick="removeCustomTax(${r})" style="background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:12px;padding:0;">✕</button></span>`
   ).join("");
 }
 
 // ── Discount ──
 function setDiscountType(type) {
   discountType = type;
-  document.getElementById("disc-type-pct").className = "discount-type-btn" + (type === "pct" ? " active" : "");
-  document.getElementById("disc-type-amt").className = "discount-type-btn" + (type === "amt" ? " active" : "");
-  document.getElementById("discount-suffix").textContent = type === "pct" ? "%" : "円";
-  document.getElementById("item-discount").placeholder = type === "pct" ? "0" : "0";
+  document.getElementById("disc-type-pct").className = "discount-type-btn" + (type==="pct"?" active":"");
+  document.getElementById("disc-type-amt").className = "discount-type-btn" + (type==="amt"?" active":"");
+  document.getElementById("discount-suffix").textContent = type==="pct" ? "%" : "円";
 }
-
-function calcDiscountedPrice(price, qty, discVal, discType) {
-  if (!discVal || discVal <= 0) return price * qty;
-  if (discType === "pct") {
-    return price * qty * (1 - discVal / 100);
-  } else {
-    return Math.max(0, price * qty - discVal);
-  }
-}
-
 function calcDiscountAmount(price, qty, discVal, discType) {
   if (!discVal || discVal <= 0) return 0;
-  if (discType === "pct") {
-    return price * qty * (discVal / 100);
-  } else {
-    return Math.min(price * qty, discVal);
-  }
+  return discType === "pct" ? price*qty*(discVal/100) : Math.min(price*qty, discVal);
 }
 
 // ── Categories ──
 const catRow = document.getElementById("cat-row");
 CATEGORIES.forEach(cat => {
   const btn = document.createElement("button");
-  btn.className = "cat-btn";
-  btn.id = "cat-" + cat.id;
-  btn.textContent = cat.emoji + " " + cat.label;
+  btn.className = "cat-btn"; btn.id = "cat-"+cat.id;
+  btn.textContent = cat.emoji+" "+cat.label;
   btn.onclick = () => selectCat(cat.id);
   catRow.appendChild(btn);
 });
 selectCat("food");
-
 function selectCat(id) {
   selectedCat = id;
   CATEGORIES.forEach(c => {
-    const btn = document.getElementById("cat-" + c.id);
-    if (c.id === id) {
-      btn.style.borderColor = c.accent;
-      btn.style.background = c.color;
-      btn.style.color = c.accent;
-    } else {
-      btn.style.borderColor = "transparent";
-      btn.style.background = "rgba(255,255,255,0.05)";
-      btn.style.color = "#aaa";
-    }
+    const btn = document.getElementById("cat-"+c.id);
+    if (c.id===id) { btn.style.borderColor=c.accent; btn.style.background=c.color; btn.style.color=c.accent; }
+    else { btn.style.borderColor="transparent"; btn.style.background="rgba(255,255,255,0.05)"; btn.style.color="#aaa"; }
   });
 }
 
 // ── Budget ──
 function editBudget() {
-  document.getElementById("budget-display").style.display = "none";
-  document.getElementById("budget-edit").style.display = "flex";
-  document.getElementById("budget-input").value = budget || "";
+  document.getElementById("budget-display").style.display="none";
+  document.getElementById("budget-edit").style.display="flex";
+  document.getElementById("budget-input").value=budget||"";
   document.getElementById("budget-input").focus();
 }
 function confirmBudget() {
-  budget = parseFloat(document.getElementById("budget-input").value) || 0;
-  document.getElementById("budget-display").style.display = "flex";
-  document.getElementById("budget-edit").style.display = "none";
-  document.getElementById("budget-text").textContent = budget > 0 ? "予算: " + yen(budget) : "予算を設定する（タップ）";
+  budget = parseFloat(document.getElementById("budget-input").value)||0;
+  document.getElementById("budget-display").style.display="flex";
+  document.getElementById("budget-edit").style.display="none";
+  document.getElementById("budget-text").textContent = budget>0 ? "予算: "+yen(budget) : "予算を設定する（タップ）";
   render();
 }
 
-// ── Add Item ──
+// ── Items ──
 function addItem() {
   const name = document.getElementById("item-name").value.trim();
   const price = parseFloat(document.getElementById("item-price").value);
-  const qty = parseInt(document.getElementById("item-qty").value) || 1;
-  const discVal = parseFloat(document.getElementById("item-discount").value) || 0;
-  if (!name || isNaN(price) || price <= 0) return;
-  items.unshift({
-    id: idCnt++, name, price, qty,
-    category: selectedCat,
-    taxRate: selectedTax,
-    discountType: discountType,
-    discountVal: discVal,
-    isNew: true
-  });
-  document.getElementById("item-name").value = "";
-  document.getElementById("item-price").value = "";
-  document.getElementById("item-qty").value = "1";
-  document.getElementById("item-discount").value = "";
+  const qty = parseInt(document.getElementById("item-qty").value)||1;
+  const discVal = parseFloat(document.getElementById("item-discount").value)||0;
+  if (!name||isNaN(price)||price<=0) return;
+  items.unshift({ id:idCnt++, name, price, qty, category:selectedCat, taxRate:selectedTax, discountType, discountVal:discVal, isNew:true });
+  document.getElementById("item-name").value="";
+  document.getElementById("item-price").value="";
+  document.getElementById("item-qty").value="1";
+  document.getElementById("item-discount").value="";
   document.getElementById("item-name").focus();
   render();
-  setTimeout(() => { if (items.length) items[0].isNew = false; render(); }, 700);
+  setTimeout(() => { if(items.length) items[0].isNew=false; render(); }, 700);
 }
-
-function removeItem(id) { items = items.filter(i => i.id !== id); render(); }
-
-function updateQty(id, d) {
-  items = items.map(i => i.id === id ? { ...i, qty: Math.max(1, i.qty + d) } : i);
-  render();
-}
-
+function removeItem(id) { items=items.filter(i=>i.id!==id); render(); }
+function updateQty(id,d) { items=items.map(i=>i.id===id?{...i,qty:Math.max(1,i.qty+d)}:i); render(); }
 function openDiscountEdit(id) {
-  const item = items.find(i => i.id === id);
-  if (!item) return;
-  const current = item.discountVal > 0 ? item.discountVal : "";
-  const type = item.discountType;
-  const suffix = type === "pct" ? "%" : "円";
-  const val = prompt(`割引を入力してください（${suffix}）\n0で割引なし`, current);
-  if (val === null) return;
-  const num = parseFloat(val) || 0;
-  items = items.map(i => i.id === id ? { ...i, discountVal: num } : i);
-  render();
+  const item=items.find(i=>i.id===id); if(!item) return;
+  const suffix=item.discountType==="pct"?"%":"円";
+  const val=prompt(`割引を入力してください（${suffix}）\n0で割引なし`, item.discountVal>0?item.discountVal:"");
+  if(val===null) return;
+  items=items.map(i=>i.id===id?{...i,discountVal:parseFloat(val)||0}:i); render();
 }
-
-function updateItemTax(id, rate) {
-  items = items.map(i => i.id === id ? { ...i, taxRate: rate } : i);
-  render();
-}
+function updateItemTax(id,rate) { items=items.map(i=>i.id===id?{...i,taxRate:rate}:i); render(); }
 
 // ── Render ──
-function render() {
-  let subtotalBeforeDiscount = 0;
-  let totalDiscount = 0;
-  let totalTax = 0;
-  let total = 0;
-
+function calcTotals() {
+  let subtotalBeforeDiscount=0, totalDiscount=0, totalTax=0, total=0;
   items.forEach(item => {
-    const basePrice = item.price * item.qty;
-    const discAmt = calcDiscountAmount(item.price, item.qty, item.discountVal, item.discountType);
-    const discountedPrice = basePrice - discAmt;
-    const taxAmt = discountedPrice * (item.taxRate / 100);
-    subtotalBeforeDiscount += basePrice;
-    totalDiscount += discAmt;
-    totalTax += taxAmt;
-    total += discountedPrice + taxAmt;
+    const base=item.price*item.qty;
+    const disc=calcDiscountAmount(item.price,item.qty,item.discountVal,item.discountType);
+    const discounted=base-disc;
+    subtotalBeforeDiscount+=base; totalDiscount+=disc;
+    totalTax+=discounted*(item.taxRate/100);
+    total+=discounted+discounted*(item.taxRate/100);
   });
+  return { subtotalBeforeDiscount, totalDiscount, totalTax, total };
+}
 
-  const over = budget > 0 && total > budget;
-  const remaining = budget - total;
+function render() {
+  const { subtotalBeforeDiscount, totalDiscount, totalTax, total } = calcTotals();
+  const over = budget>0&&total>budget, remaining=budget-total;
 
-  // header
-  const ha = document.getElementById("header-total");
-  ha.textContent = yen(total);
-  ha.style.color = over ? "#ff6b6b" : "#7FFF00";
+  const ha=document.getElementById("header-total");
+  ha.textContent=yen(total); ha.style.color=over?"#ff6b6b":"#7FFF00";
 
-  // budget bar
-  const bw = document.getElementById("budget-bar-wrap");
-  if (budget > 0) {
-    bw.style.display = "block";
-    const pct = Math.min(100, (total / budget) * 100);
-    const fill = document.getElementById("budget-bar-fill");
-    fill.style.width = pct + "%";
-    fill.style.background = over ? "linear-gradient(90deg,#ff6b6b,#f00)" : "linear-gradient(90deg,#7FFF00,#00e676)";
-    document.getElementById("budget-bar-left").textContent = "予算: " + yen(budget);
-    const br = document.getElementById("budget-bar-right");
-    br.textContent = over ? "超過: " + yen(-remaining) : "残り: " + yen(remaining);
-    br.style.color = over ? "#ff6b6b" : "#7FFF00";
+  const bw=document.getElementById("budget-bar-wrap");
+  if(budget>0) {
+    bw.style.display="block";
+    const fill=document.getElementById("budget-bar-fill");
+    fill.style.width=Math.min(100,(total/budget)*100)+"%";
+    fill.style.background=over?"linear-gradient(90deg,#ff6b6b,#f00)":"linear-gradient(90deg,#7FFF00,#00e676)";
+    document.getElementById("budget-bar-left").textContent="予算: "+yen(budget);
+    const br=document.getElementById("budget-bar-right");
+    br.textContent=over?"超過: "+yen(-remaining):"残り: "+yen(remaining);
+    br.style.color=over?"#ff6b6b":"#7FFF00";
+  } else bw.style.display="none";
+
+  const list=document.getElementById("item-list");
+  if(items.length===0) {
+    list.innerHTML='<div class="empty"><div class="empty-icon">🛒</div><div style="font-size:14px;">📷 値札を撮影するか、手動で商品を追加</div></div>';
   } else {
-    bw.style.display = "none";
-  }
-
-  // list
-  const list = document.getElementById("item-list");
-  if (items.length === 0) {
-    list.innerHTML = '<div class="empty"><div class="empty-icon">🛒</div><div style="font-size:14px;">📷 値札を撮影するか、手動で商品を追加</div></div>';
-  } else {
-    list.innerHTML = items.map(item => {
-      const cat = CATEGORIES.find(c => c.id === item.category) || CATEGORIES[0];
-      const basePrice = item.price * item.qty;
-      const discAmt = calcDiscountAmount(item.price, item.qty, item.discountVal, item.discountType);
-      const discountedPrice = basePrice - discAmt;
-      const taxAmt = discountedPrice * (item.taxRate / 100);
-      const finalPrice = discountedPrice + taxAmt;
-      const hasDiscount = item.discountVal > 0;
-      const discLabel = item.discountType === "pct" ? `-${item.discountVal}%` : `-${yen(item.discountVal)}`;
-
-      const taxBtns = getAllTaxRates().map(rate =>
+    list.innerHTML=items.map(item=>{
+      const cat=CATEGORIES.find(c=>c.id===item.category)||CATEGORIES[0];
+      const base=item.price*item.qty;
+      const disc=calcDiscountAmount(item.price,item.qty,item.discountVal,item.discountType);
+      const discounted=base-disc;
+      const final=discounted+discounted*(item.taxRate/100);
+      const hasDiscount=item.discountVal>0;
+      const discLabel=item.discountType==="pct"?`-${item.discountVal}%`:"-"+yen(item.discountVal);
+      const taxBtns=getAllTaxRates().map(rate=>
         `<button onclick="updateItemTax(${item.id},${rate})" style="padding:2px 7px;border-radius:5px;border:none;cursor:pointer;font-size:11px;font-weight:700;background:${rate===item.taxRate?'#0046BE':'rgba(255,255,255,0.1)'};color:#fff;">${rate}%</button>`
       ).join("");
-
-      return `<div class="item ${item.isNew ? 'new' : ''}">
+      return `<div class="item ${item.isNew?'new':''}">
         <div class="item-top">
           <div class="item-icon" style="background:${cat.color};">${cat.emoji}</div>
           <div class="item-info">
             <div class="item-name">${item.name}</div>
-            <div class="item-sub">
-              ${yen(item.price)} × ${item.qty}
-              ${hasDiscount ? `<span style="color:#ff9944;"> ${discLabel}</span>` : ""}
-              <span style="color:#5577cc;"> 税${item.taxRate}%</span>
-            </div>
+            <div class="item-sub">${yen(item.price)} × ${item.qty}${hasDiscount?`<span style="color:#ff9944;"> ${discLabel}</span>`:""}<span style="color:#5577cc;"> 税${item.taxRate}%</span></div>
           </div>
           <div class="item-right">
-            ${hasDiscount ? `<div class="item-original">${yen(basePrice)}</div>` : ""}
-            <div class="item-total">${yen(finalPrice)}</div>
+            ${hasDiscount?`<div class="item-original">${yen(base)}</div>`:""}
+            <div class="item-total">${yen(final)}</div>
             <div class="item-btns">
               <button class="btn-qty" onclick="updateQty(${item.id},-1)">−</button>
               <button class="btn-qty" onclick="updateQty(${item.id},1)">＋</button>
@@ -772,209 +567,219 @@ function render() {
     }).join("");
   }
 
-  // summary
-  const sum = document.getElementById("summary");
-  if (items.length > 0) {
-    sum.style.display = "block";
-    const subtotalAfterDiscount = subtotalBeforeDiscount - totalDiscount;
-    document.getElementById("sum-subtotal").textContent = yen(subtotalAfterDiscount);
-    const discEl = document.getElementById("sum-discount");
-    if (totalDiscount > 0) {
-      discEl.textContent = "-" + yen(totalDiscount);
-      discEl.parentElement.style.display = "flex";
-    } else {
-      discEl.parentElement.style.display = "none";
-    }
-    document.getElementById("sum-tax").textContent = yen(totalTax);
-    const st = document.getElementById("sum-total");
-    st.textContent = yen(total);
-    st.style.color = over ? "#ff6b6b" : "#7FFF00";
-    const msg = document.getElementById("sum-budget-msg");
-    if (budget > 0) {
-      msg.style.display = "block";
-      msg.textContent = over ? `⚠️ 予算を ${yen(-remaining)} オーバー` : `✅ 残り ${yen(remaining)}`;
-      msg.style.background = over ? "rgba(255,0,0,0.15)" : "rgba(127,255,0,0.1)";
-      msg.style.color = over ? "#ff6b6b" : "#7FFF00";
-    } else {
-      msg.style.display = "none";
-    }
-    document.getElementById("sum-count").textContent = items.reduce((s,i)=>s+i.qty,0) + " 点";
-  } else {
-    sum.style.display = "none";
+  const sum=document.getElementById("summary");
+  if(items.length>0) {
+    sum.style.display="block";
+    document.getElementById("sum-subtotal").textContent=yen(subtotalBeforeDiscount-totalDiscount);
+    const discRow=document.getElementById("sum-discount-row");
+    if(totalDiscount>0) { document.getElementById("sum-discount").textContent="-"+yen(totalDiscount); discRow.style.display="flex"; }
+    else discRow.style.display="none";
+    document.getElementById("sum-tax").textContent=yen(totalTax);
+    const st=document.getElementById("sum-total");
+    st.textContent=yen(total); st.style.color=over?"#ff6b6b":"#7FFF00";
+    const msg=document.getElementById("sum-budget-msg");
+    if(budget>0) {
+      msg.style.display="block";
+      msg.textContent=over?`⚠️ 予算を ${yen(-remaining)} オーバー`:`✅ 残り ${yen(remaining)}`;
+      msg.style.background=over?"rgba(255,0,0,0.15)":"rgba(127,255,0,0.1)";
+      msg.style.color=over?"#ff6b6b":"#7FFF00";
+    } else msg.style.display="none";
+    document.getElementById("sum-count").textContent=items.reduce((s,i)=>s+i.qty,0)+" 点";
+  } else sum.style.display="none";
+}
+
+// ── History ──
+function saveHistory() {
+  localStorage.setItem("shopping_history", JSON.stringify(shoppingHistory));
+}
+function loadHistory() {
+  const saved = localStorage.getItem("shopping_history");
+  if (saved) shoppingHistory = JSON.parse(saved);
+}
+
+function openSaveModal() {
+  if (items.length === 0) return;
+  const { total } = calcTotals();
+  document.getElementById("save-store-name").value = "";
+  document.getElementById("save-datetime").textContent = formatDateTime(new Date().toISOString());
+  document.getElementById("save-total").textContent = yen(total);
+  document.getElementById("save-modal").classList.add("open");
+}
+function closeSaveModal() {
+  document.getElementById("save-modal").classList.remove("open");
+}
+function confirmSave() {
+  const store = document.getElementById("save-store-name").value.trim() || "店名未設定";
+  const { total, totalDiscount, totalTax } = calcTotals();
+  const record = {
+    id: Date.now(),
+    store,
+    datetime: new Date().toISOString(),
+    total,
+    totalDiscount,
+    totalTax,
+    items: items.map(i => ({ name:i.name, price:i.price, qty:i.qty, taxRate:i.taxRate, discountVal:i.discountVal, discountType:i.discountType, category:i.category }))
+  };
+  shoppingHistory.unshift(record);
+  saveHistory();
+  closeSaveModal();
+  alert(`「${store}」の買い物を保存しました！`);
+}
+
+function openHistory() {
+  renderHistoryList();
+  document.getElementById("history-modal").classList.add("open");
+}
+function closeHistory() {
+  document.getElementById("history-modal").classList.remove("open");
+}
+function deleteHistory(id) {
+  if (!confirm("この履歴を削除しますか？")) return;
+  shoppingHistory = shoppingHistory.filter(h => h.id !== id);
+  saveHistory();
+  renderHistoryList();
+}
+function loadFromHistory(id) {
+  const record = shoppingHistory.find(h => h.id === id);
+  if (!record) return;
+  if (!confirm(`「${record.store}」の商品をカートに読み込みますか？\n現在のカートは置き換えられます。`)) return;
+  idCnt = 1;
+  items = record.items.map(i => ({ ...i, id: idCnt++, isNew: false }));
+  closeHistory();
+  render();
+}
+
+function toggleHistoryItems(id) {
+  const el = document.getElementById("history-items-"+id);
+  const tog = document.getElementById("history-toggle-"+id);
+  if (el.style.display === "none") { el.style.display = "block"; tog.textContent = "▲ 商品を隠す"; }
+  else { el.style.display = "none"; tog.textContent = "▼ 商品を見る（"+el.dataset.count+"点）"; }
+}
+
+function renderHistoryList() {
+  const container = document.getElementById("history-list-container");
+  if (shoppingHistory.length === 0) {
+    container.innerHTML = '<div class="empty"><div class="empty-icon">📋</div><div style="font-size:14px;">まだ買い物履歴がありません</div></div>';
+    return;
   }
+  container.innerHTML = shoppingHistory.map(h => {
+    const itemRows = h.items.map(i => {
+      const disc = calcDiscountAmount(i.price, i.qty, i.discountVal, i.discountType);
+      const discounted = i.price*i.qty - disc;
+      const final = discounted + discounted*(i.taxRate/100);
+      return `<div class="history-item-row"><span class="history-item-name">${i.name}${i.qty>1?` ×${i.qty}`:""}</span><span class="history-item-price">${yen(final)}</span></div>`;
+    }).join("");
+    const totalItems = h.items.reduce((s,i)=>s+i.qty,0);
+    return `<div class="history-card">
+      <div class="history-card-header">
+        <div>
+          <div class="history-store">🏪 ${h.store}</div>
+          <div class="history-date">🕐 ${formatDateTime(h.datetime)}</div>
+        </div>
+        <div class="history-total">${yen(h.total)}</div>
+      </div>
+      <div class="history-items-count">${totalItems}点 / 割引: ${yen(h.totalDiscount)} / 税: ${yen(h.totalTax)}</div>
+      <div id="history-items-${h.id}" style="display:none;" data-count="${totalItems}">${itemRows}</div>
+      <div class="history-toggle" id="history-toggle-${h.id}" onclick="toggleHistoryItems(${h.id})">▼ 商品を見る（${totalItems}点）</div>
+      <div class="history-btns">
+        <button class="btn-history-load" onclick="loadFromHistory(${h.id})">🛒 カートに読み込む</button>
+        <button class="btn-history-del" onclick="deleteHistory(${h.id})">🗑️</button>
+      </div>
+    </div>`;
+  }).join("");
 }
 
 // ── Settings ──
 function openSettings() {
   document.getElementById("settings-modal").classList.add("open");
-  document.getElementById("default-tax-8").className = "tax-btn" + (defaultTax === 8 ? " active" : "");
-  document.getElementById("default-tax-10").className = "tax-btn" + (defaultTax === 10 ? " active" : "");
+  document.getElementById("default-tax-8").className="tax-btn"+(defaultTax===8?" active":"");
+  document.getElementById("default-tax-10").className="tax-btn"+(defaultTax===10?" active":"");
   renderCustomTaxList();
 }
-function closeSettings() {
-  document.getElementById("settings-modal").classList.remove("open");
-}
-
-// ── API Key ──
+function closeSettings() { document.getElementById("settings-modal").classList.remove("open"); }
 function saveApiKey() {
-  const key = document.getElementById("api-key-input").value.trim();
-  if (!key.startsWith("sk-")) {
-    document.getElementById("apikey-status").textContent = "⚠️ sk-ant-... で始まるキーを入力してください";
-    document.getElementById("apikey-status").style.color = "#ff9999";
-    return;
-  }
-  localStorage.setItem("anthropic_api_key", key);
-  document.getElementById("apikey-status").textContent = "✅ 保存しました！";
-  document.getElementById("apikey-status").style.color = "#7FFF00";
+  const key=document.getElementById("api-key-input").value.trim();
+  if(!key.startsWith("sk-")) { document.getElementById("apikey-status").textContent="⚠️ sk-ant-... で始まるキーを入力してください"; document.getElementById("apikey-status").style.color="#ff9999"; return; }
+  localStorage.setItem("anthropic_api_key",key);
+  document.getElementById("apikey-status").textContent="✅ 保存しました！";
+  document.getElementById("apikey-status").style.color="#7FFF00";
 }
 
 // ── Camera ──
-function openCamera() {
-  document.getElementById("camera-modal").classList.add("open");
-  setPhase("preview");
-  startCamera();
-}
-function closeCamera() {
-  stopCamera();
-  document.getElementById("camera-modal").classList.remove("open");
-}
+function openCamera() { document.getElementById("camera-modal").classList.add("open"); setPhase("preview"); startCamera(); }
+function closeCamera() { stopCamera(); document.getElementById("camera-modal").classList.remove("open"); }
 async function startCamera() {
   try {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      video: { facingMode: "environment", width: { ideal: 1280 }, height: { ideal: 720 } }
-    });
-    currentStream = stream;
-    const video = document.getElementById("camera-video");
-    video.srcObject = stream;
-    video.play();
-  } catch(e) {
-    setPhase("error", "カメラへのアクセスが拒否されました。\nブラウザの設定でカメラを許可してください。");
-  }
+    const stream = await navigator.mediaDevices.getUserMedia({ video:{facingMode:"environment",width:{ideal:1280},height:{ideal:720}} });
+    currentStream=stream; const video=document.getElementById("camera-video"); video.srcObject=stream; video.play();
+  } catch(e) { setPhase("error","カメラへのアクセスが拒否されました。\nブラウザの設定でカメラを許可してください。"); }
 }
-function stopCamera() {
-  if (currentStream) { currentStream.getTracks().forEach(t => t.stop()); currentStream = null; }
-}
+function stopCamera() { if(currentStream){currentStream.getTracks().forEach(t=>t.stop());currentStream=null;} }
 function capture() {
-  const video = document.getElementById("camera-video");
-  const canvas = document.getElementById("camera-canvas");
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-  canvas.getContext("2d").drawImage(video, 0, 0);
-  capturedDataUrl = canvas.toDataURL("image/jpeg", 0.85);
-  document.getElementById("camera-preview").src = capturedDataUrl;
-  stopCamera();
-  setPhase("captured");
+  const video=document.getElementById("camera-video"), canvas=document.getElementById("camera-canvas");
+  canvas.width=video.videoWidth; canvas.height=video.videoHeight;
+  canvas.getContext("2d").drawImage(video,0,0);
+  capturedDataUrl=canvas.toDataURL("image/jpeg",0.85);
+  document.getElementById("camera-preview").src=capturedDataUrl;
+  stopCamera(); setPhase("captured");
 }
-function retake() {
-  capturedDataUrl = null;
-  scanResult = null;
-  setPhase("preview");
-  startCamera();
-}
+function retake() { capturedDataUrl=null; scanResult=null; setPhase("preview"); startCamera(); }
 async function analyze() {
   setPhase("analyzing");
   try {
-    const apiKey = document.getElementById("api-key-input").value.trim();
-    if (!apiKey || !apiKey.startsWith("sk-")) {
-      setPhase("error", "APIキーが設定されていません。\n右上の⚙️設定からAPIキーを入力してください。");
-      return;
-    }
-    const base64 = capturedDataUrl.split(",")[1];
-    const res = await fetch("https://api.anthropic.com/v1/messages", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        "x-api-key": apiKey,
-        "anthropic-version": "2023-06-01",
-        "anthropic-dangerous-direct-browser-access": "true"
-      },
-      body: JSON.stringify({
-        model: "claude-sonnet-4-20250514",
-        max_tokens: 300,
-        messages: [{
-          role: "user",
-          content: [
-            { type: "image", source: { type: "base64", media_type: "image/jpeg", data: base64 } },
-            { type: "text", text: `この画像はスーパーや量販店の値札・商品タグです。
-以下のJSONのみを返してください（説明文・マークダウン不要）:
-{"name":"商品名（日本語・簡潔に）","price":数値（税抜き円・数字のみ）,"found":true}
-読み取れない場合: {"name":"","price":0,"found":false}` }
-          ]
-        }]
-      })
+    const apiKey=document.getElementById("api-key-input").value.trim();
+    if(!apiKey||!apiKey.startsWith("sk-")) { setPhase("error","APIキーが設定されていません。\n右上の⚙️設定からAPIキーを入力してください。"); return; }
+    const base64=capturedDataUrl.split(",")[1];
+    const res=await fetch("https://api.anthropic.com/v1/messages",{
+      method:"POST",
+      headers:{"Content-Type":"application/json","x-api-key":apiKey,"anthropic-version":"2023-06-01","anthropic-dangerous-direct-browser-access":"true"},
+      body:JSON.stringify({model:"claude-sonnet-4-20250514",max_tokens:300,messages:[{role:"user",content:[
+        {type:"image",source:{type:"base64",media_type:"image/jpeg",data:base64}},
+        {type:"text",text:`この画像はスーパーや量販店の値札・商品タグです。\n以下のJSONのみを返してください（説明文・マークダウン不要）:\n{"name":"商品名（日本語・簡潔に）","price":数値（税抜き円・数字のみ）,"found":true}\n読み取れない場合: {"name":"","price":0,"found":false}`}
+      ]}]})
     });
-    const data = await res.json();
-    if (data.error) { setPhase("error", "APIエラー: " + data.error.message); return; }
-    const text = (data.content || []).map(c => c.text || "").join("");
-    const clean = text.replace(/```json|```/g, "").trim();
-    scanResult = JSON.parse(clean);
-    document.getElementById("result-name").textContent = scanResult.name || "（読み取れませんでした）";
-    document.getElementById("result-price").textContent = scanResult.price ? yen(scanResult.price) : "（読み取れませんでした）";
-    document.getElementById("result-preview").src = capturedDataUrl;
-    document.getElementById("result-warn").style.display = (!scanResult.name || !scanResult.price) ? "block" : "none";
+    const data=await res.json();
+    if(data.error){setPhase("error","APIエラー: "+data.error.message);return;}
+    const text=(data.content||[]).map(c=>c.text||"").join("");
+    scanResult=JSON.parse(text.replace(/```json|```/g,"").trim());
+    document.getElementById("result-name").textContent=scanResult.name||"（読み取れませんでした）";
+    document.getElementById("result-price").textContent=scanResult.price?yen(scanResult.price):"（読み取れませんでした）";
+    document.getElementById("result-preview").src=capturedDataUrl;
+    document.getElementById("result-warn").style.display=(!scanResult.name||!scanResult.price)?"block":"none";
     setPhase("done");
-  } catch(e) {
-    setPhase("error", "エラー内容: " + e.message);
-  }
+  } catch(e) { setPhase("error","エラー内容: "+e.message); }
 }
 function confirmResult() {
-  if (scanResult) {
-    if (scanResult.name) document.getElementById("item-name").value = scanResult.name;
-    if (scanResult.price) document.getElementById("item-price").value = scanResult.price;
-  }
-  closeCamera();
-  document.getElementById("item-name").focus();
+  if(scanResult){ if(scanResult.name)document.getElementById("item-name").value=scanResult.name; if(scanResult.price)document.getElementById("item-price").value=scanResult.price; }
+  closeCamera(); document.getElementById("item-name").focus();
 }
-function setPhase(phase, errMsg) {
-  const video = document.getElementById("camera-video");
-  const preview = document.getElementById("camera-preview");
-  const scanOverlay = document.getElementById("scan-overlay");
-  const analyzingOverlay = document.getElementById("analyzing-overlay");
-  const resultCard = document.getElementById("result-card");
-  const errorCard = document.getElementById("error-card");
-  const footer = document.getElementById("modal-footer");
-  const sub = document.getElementById("modal-sub");
-  const viewfinder = document.getElementById("viewfinder");
-  video.style.display = "none"; preview.style.display = "none";
-  scanOverlay.style.display = "none"; analyzingOverlay.classList.remove("show");
-  resultCard.classList.remove("show"); errorCard.classList.remove("show");
-  viewfinder.style.display = "none";
-  const subs = { preview:"値札にカメラを向けて撮影してください", captured:"この画像を解析しますか？", analyzing:"AIが読み取り中...", done:"読み取り完了！内容を確認してください", error:"エラーが発生しました" };
-  sub.textContent = subs[phase] || "";
-  if (phase === "preview") {
-    viewfinder.style.display = "block"; video.style.display = "block"; scanOverlay.style.display = "flex";
-    footer.innerHTML = '<button class="btn-capture" onclick="capture()">📸 撮影する</button>';
-  } else if (phase === "captured") {
-    viewfinder.style.display = "block"; preview.style.display = "block";
-    footer.innerHTML = '<button class="btn-retake" onclick="retake()">🔄 撮り直す</button><button class="btn-analyze" onclick="analyze()">🔍 AIで読み取る</button>';
-  } else if (phase === "analyzing") {
-    viewfinder.style.display = "block"; preview.style.display = "block"; analyzingOverlay.classList.add("show");
-    footer.innerHTML = '';
-  } else if (phase === "done") {
-    resultCard.classList.add("show");
-    footer.innerHTML = '<button class="btn-retake" onclick="retake()">🔄 撮り直す</button><button class="btn-confirm" onclick="confirmResult()">✅ カートに追加</button>';
-  } else if (phase === "error") {
-    errorCard.classList.add("show");
-    document.getElementById("error-msg").textContent = errMsg || "エラーが発生しました";
-    footer.innerHTML = '<button class="btn-retake" onclick="retake()">🔄 もう一度試す</button>';
-  }
+function setPhase(phase,errMsg) {
+  const video=document.getElementById("camera-video"),preview=document.getElementById("camera-preview");
+  const scanOverlay=document.getElementById("scan-overlay"),analyzingOverlay=document.getElementById("analyzing-overlay");
+  const resultCard=document.getElementById("result-card"),errorCard=document.getElementById("error-card");
+  const footer=document.getElementById("modal-footer"),sub=document.getElementById("modal-sub"),viewfinder=document.getElementById("viewfinder");
+  video.style.display="none";preview.style.display="none";scanOverlay.style.display="none";
+  analyzingOverlay.classList.remove("show");resultCard.classList.remove("show");errorCard.classList.remove("show");viewfinder.style.display="none";
+  const subs={preview:"値札にカメラを向けて撮影してください",captured:"この画像を解析しますか？",analyzing:"AIが読み取り中...",done:"読み取り完了！内容を確認してください",error:"エラーが発生しました"};
+  sub.textContent=subs[phase]||"";
+  if(phase==="preview"){viewfinder.style.display="block";video.style.display="block";scanOverlay.style.display="flex";footer.innerHTML='<button class="btn-capture" onclick="capture()">📸 撮影する</button>';}
+  else if(phase==="captured"){viewfinder.style.display="block";preview.style.display="block";footer.innerHTML='<button class="btn-retake" onclick="retake()">🔄 撮り直す</button><button class="btn-analyze" onclick="analyze()">🔍 AIで読み取る</button>';}
+  else if(phase==="analyzing"){viewfinder.style.display="block";preview.style.display="block";analyzingOverlay.classList.add("show");footer.innerHTML='';}
+  else if(phase==="done"){resultCard.classList.add("show");footer.innerHTML='<button class="btn-retake" onclick="retake()">🔄 撮り直す</button><button class="btn-confirm" onclick="confirmResult()">✅ カートに追加</button>';}
+  else if(phase==="error"){errorCard.classList.add("show");document.getElementById("error-msg").textContent=errMsg||"エラーが発生しました";footer.innerHTML='<button class="btn-retake" onclick="retake()">🔄 もう一度試す</button>';}
 }
 
 // ── Init ──
 window.addEventListener("load", () => {
-  const savedKey = localStorage.getItem("anthropic_api_key");
-  if (savedKey) {
-    document.getElementById("api-key-input").value = savedKey;
-    document.getElementById("apikey-status").textContent = "✅ 保存済みのキーがあります";
-    document.getElementById("apikey-status").style.color = "#7FFF00";
-  }
-  const savedDefaultTax = localStorage.getItem("default_tax");
-  if (savedDefaultTax) { defaultTax = parseInt(savedDefaultTax); selectedTax = defaultTax; }
-  const savedCustomTax = localStorage.getItem("custom_tax_rates");
-  if (savedCustomTax) { customTaxRates = JSON.parse(savedCustomTax); }
+  const savedKey=localStorage.getItem("anthropic_api_key");
+  if(savedKey){document.getElementById("api-key-input").value=savedKey;document.getElementById("apikey-status").textContent="✅ 保存済みのキーがあります";document.getElementById("apikey-status").style.color="#7FFF00";}
+  const savedDefaultTax=localStorage.getItem("default_tax");
+  if(savedDefaultTax){defaultTax=parseInt(savedDefaultTax);selectedTax=defaultTax;}
+  const savedCustomTax=localStorage.getItem("custom_tax_rates");
+  if(savedCustomTax)customTaxRates=JSON.parse(savedCustomTax);
   buildTaxToggles();
+  loadHistory();
 });
-
 render();
 </script>
 </body>
