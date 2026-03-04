@@ -319,6 +319,19 @@
 </div>
 
 <div id="main">
+  <!-- API Key -->
+  <div class="card">
+    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
+      <span style="font-size:16px;">🔑</span>
+      <span style="color:#99b8ff;font-size:12px;font-weight:700;">Anthropic APIキー設定</span>
+    </div>
+    <div style="display:flex;gap:8px;align-items:center;">
+      <input type="password" id="api-key-input" placeholder="sk-ant-..." style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 12px;color:#fff;font-size:13px;outline:none;">
+      <button onclick="saveApiKey()" style="background:#0046BE;color:#fff;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:700;font-size:13px;">保存</button>
+    </div>
+    <div id="apikey-status" style="color:#5577cc;font-size:11px;margin-top:6px;">APIキーを入力して「保存」を押してください</div>
+  </div>
+
   <!-- Budget -->
   <div class="card">
     <div class="budget-display" id="budget-display" onclick="editBudget()">
@@ -398,6 +411,29 @@ let idCnt = 1;
 let currentStream = null;
 let capturedDataUrl = null;
 let scanResult = null;
+
+// ── API Key ──
+function saveApiKey() {
+  const key = document.getElementById("api-key-input").value.trim();
+  if (!key.startsWith("sk-")) {
+    document.getElementById("apikey-status").textContent = "⚠️ sk-ant-... で始まるキーを入力してください";
+    document.getElementById("apikey-status").style.color = "#ff9999";
+    return;
+  }
+  localStorage.setItem("anthropic_api_key", key);
+  document.getElementById("apikey-status").textContent = "✅ 保存しました！";
+  document.getElementById("apikey-status").style.color = "#7FFF00";
+}
+
+// Load saved key on startup
+window.addEventListener("load", () => {
+  const saved = localStorage.getItem("anthropic_api_key");
+  if (saved) {
+    document.getElementById("api-key-input").value = saved;
+    document.getElementById("apikey-status").textContent = "✅ 保存済みのキーがあります";
+    document.getElementById("apikey-status").style.color = "#7FFF00";
+  }
+});
 
 // ── Categories ──
 const catRow = document.getElementById("cat-row");
@@ -596,14 +632,18 @@ function retake() {
 async function analyze() {
   setPhase("analyzing");
   try {
+    const apiKey = document.getElementById("api-key-input").value.trim();
+    if (!apiKey || !apiKey.startsWith("sk-")) {
+      setPhase("error", "APIキーが設定されていません。\n画面上部の「APIキー設定」にsk-ant-...で始まるキーを入力してください。");
+      return;
+    }
     const base64 = capturedDataUrl.split(",")[1];
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
       headers: {
-         "Content-Type": "application/json",
-         "x-api-key": "",
-         "anthropic-version": "2023-06-01",
-         "anthropic-dangerous-direct-browser-access": "true"
+        "Content-Type": "application/json",
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01"
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
@@ -621,6 +661,10 @@ async function analyze() {
       })
     });
     const data = await res.json();
+    if (data.error) {
+      setPhase("error", "APIエラー: " + data.error.message);
+      return;
+    }
     const text = (data.content || []).map(c => c.text || "").join("");
     const clean = text.replace(/```json|```/g, "").trim();
     scanResult = JSON.parse(clean);
@@ -631,7 +675,7 @@ async function analyze() {
     warn.style.display = (!scanResult.name || !scanResult.price) ? "block" : "none";
     setPhase("done");
   } catch(e) {
-    setPhase("error", "読み取りに失敗しました。もう一度お試しください。");
+    setPhase("error", "エラー内容: " + e.message);
   }
 }
 
