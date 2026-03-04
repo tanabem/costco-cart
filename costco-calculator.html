@@ -18,7 +18,6 @@
   input::-webkit-outer-spin-button,
   input::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
 
-  /* Header */
   #header {
     background: linear-gradient(90deg, #003087, #0046BE);
     padding: 20px 20px 16px;
@@ -38,10 +37,8 @@
   .budget-bar-fill { height: 100%; border-radius: 6px; transition: width 0.4s ease; }
   .budget-bar-labels { display: flex; justify-content: space-between; margin-top: 4px; font-size: 11px; }
 
-  /* Main */
   #main { max-width: 480px; margin: 0 auto; padding: 16px 16px 0; }
 
-  /* Card */
   .card {
     background: rgba(255,255,255,0.07);
     border-radius: 14px; padding: 12px 16px; margin-bottom: 14px;
@@ -52,8 +49,6 @@
     border-radius: 16px; padding: 16px; margin-bottom: 16px;
     border: 1px solid rgba(255,255,255,0.15);
   }
-
-  /* Budget */
   .budget-display { cursor: pointer; display: flex; align-items: center; gap: 8px; }
   .budget-edit { display: flex; gap: 8px; align-items: center; }
   .budget-edit input {
@@ -65,8 +60,6 @@
     background: #0046BE; color: #fff; border: none; border-radius: 8px;
     padding: 6px 14px; cursor: pointer; font-weight: 700; font-size: 13px;
   }
-
-  /* Form */
   .form-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .form-label { color: #99b8ff; font-size: 12px; font-weight: 700; letter-spacing: 1px; }
   .btn-camera {
@@ -76,23 +69,19 @@
     padding: 8px 14px; color: #fff; font-size: 13px; font-weight: 700; cursor: pointer;
     box-shadow: 0 2px 12px rgba(0,70,190,0.4);
   }
-
-  /* Categories */
   .cat-row { display: flex; gap: 6px; margin-bottom: 10px; flex-wrap: wrap; }
   .cat-btn {
     padding: 5px 10px; border-radius: 20px; border: 2px solid transparent;
     background: rgba(255,255,255,0.05); color: #aaa;
     font-size: 12px; font-weight: 700; cursor: pointer; transition: all 0.2s;
   }
-
-  /* Inputs */
   .input-text {
     width: 100%; background: rgba(255,255,255,0.08);
     border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
     padding: 10px 14px; color: #fff; font-size: 15px; outline: none;
     margin-bottom: 8px;
   }
-  .input-row { display: flex; gap: 8px; }
+  .input-row { display: flex; gap: 8px; margin-bottom: 8px; }
   .price-wrap { position: relative; flex: 2; }
   .price-symbol {
     position: absolute; left: 12px; top: 50%; transform: translateY(-50%);
@@ -115,31 +104,66 @@
     font-weight: 900; box-shadow: 0 4px 14px rgba(0,70,190,0.5); flex-shrink: 0;
   }
 
-  /* Empty */
+  /* Tax toggle */
+  .tax-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+  .tax-label { color: #99b8ff; font-size: 12px; }
+  .tax-toggle { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); }
+  .tax-btn {
+    padding: 6px 14px; border: none; cursor: pointer;
+    font-size: 13px; font-weight: 700; transition: all 0.2s;
+    background: rgba(255,255,255,0.05); color: #aaa;
+  }
+  .tax-btn.active { background: #0046BE; color: #fff; }
+
+  /* Discount row */
+  .discount-row { display: flex; gap: 8px; margin-bottom: 8px; align-items: center; }
+  .discount-label { color: #99b8ff; font-size: 12px; flex-shrink: 0; }
+  .discount-type { display: flex; border-radius: 8px; overflow: hidden; border: 1px solid rgba(255,255,255,0.2); flex-shrink: 0; }
+  .discount-type-btn {
+    padding: 6px 10px; border: none; cursor: pointer;
+    font-size: 12px; font-weight: 700; transition: all 0.2s;
+    background: rgba(255,255,255,0.05); color: #aaa;
+  }
+  .discount-type-btn.active { background: #c85000; color: #fff; }
+  .discount-input-wrap { position: relative; flex: 1; }
+  .discount-suffix {
+    position: absolute; right: 10px; top: 50%; transform: translateY(-50%);
+    color: #99b8ff; font-size: 13px; font-weight: 700; pointer-events: none;
+  }
+  .input-discount {
+    width: 100%; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 10px;
+    padding: 8px 28px 8px 12px; color: #fff; font-size: 14px; outline: none;
+  }
+
   .empty { text-align: center; padding: 40px 20px; color: rgba(255,255,255,0.25); }
   .empty-icon { font-size: 48px; margin-bottom: 12px; }
 
-  /* Item */
   .item {
     background: rgba(255,255,255,0.06); border-radius: 12px; padding: 12px 14px; margin-bottom: 8px;
-    border: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; gap: 10px;
-    transition: all 0.3s;
+    border: 1px solid rgba(255,255,255,0.08); transition: all 0.3s;
   }
   .item.new { background: rgba(127,255,0,0.12); border-color: rgba(127,255,0,0.4); }
+  .item-top { display: flex; align-items: center; gap: 10px; }
   .item-icon { width: 36px; height: 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0; }
   .item-info { flex: 1; min-width: 0; }
   .item-name { font-size: 14px; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .item-sub { color: #99b8ff; font-size: 12px; }
+  .item-sub { color: #99b8ff; font-size: 11px; margin-top: 2px; }
   .item-right { text-align: right; flex-shrink: 0; }
   .item-total { color: #7FFF00; font-size: 15px; font-weight: 800; }
+  .item-original { color: #888; font-size: 11px; text-decoration: line-through; }
+  .item-discount-badge { color: #ff9944; font-size: 11px; font-weight: 700; }
   .item-btns { display: flex; gap: 4px; margin-top: 4px; justify-content: flex-end; }
   .btn-qty {
     width: 24px; height: 24px; background: rgba(255,255,255,0.1);
     border: none; border-radius: 6px; color: #fff; cursor: pointer; font-size: 14px; font-weight: 700;
   }
   .btn-del { width: 24px; height: 24px; background: rgba(255,80,80,0.2); border: none; border-radius: 6px; color: #ff6b6b; cursor: pointer; font-size: 14px; }
+  .btn-discount-edit {
+    height: 24px; padding: 0 8px; background: rgba(200,80,0,0.25);
+    border: none; border-radius: 6px; color: #ff9944; cursor: pointer; font-size: 11px; font-weight: 700;
+  }
 
-  /* Summary */
   .summary {
     background: rgba(0,70,190,0.25); border: 1px solid rgba(0,102,255,0.4);
     border-radius: 16px; padding: 16px; margin-top: 8px;
@@ -152,6 +176,13 @@
   .summary-total-val { font-size: 24px; font-weight: 900; }
   .summary-budget-msg { margin-top: 8px; padding: 8px 12px; border-radius: 8px; text-align: center; font-weight: 700; font-size: 14px; }
   .summary-count { text-align: center; margin-top: 10px; color: #5577cc; font-size: 12px; }
+
+  /* Settings Modal */
+  #settings-modal {
+    display: none; position: fixed; inset: 0; z-index: 200;
+    background: rgba(0,0,0,0.85); flex-direction: column;
+  }
+  #settings-modal.open { display: flex; }
 
   /* Camera Modal */
   #camera-modal {
@@ -169,7 +200,7 @@
     background: rgba(255,255,255,0.1); border: none; border-radius: 8px;
     color: #fff; padding: 8px 14px; cursor: pointer; font-size: 13px;
   }
-  .modal-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 16px; }
+  .modal-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; gap: 16px; overflow-y: auto; }
   .viewfinder {
     width: 100%; max-width: 440px; border-radius: 16px; overflow: hidden;
     border: 2px solid rgba(255,255,255,0.15); position: relative;
@@ -177,9 +208,7 @@
   }
   #camera-video { width: 100%; height: 100%; object-fit: cover; display: block; }
   #camera-preview { width: 100%; height: 100%; object-fit: cover; display: none; }
-  .scan-overlay {
-    position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none;
-  }
+  .scan-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; pointer-events: none; }
   .scan-frame {
     width: 72%; height: 42%; border: 2px solid rgba(127,255,0,0.7); border-radius: 12px;
     box-shadow: 0 0 0 9999px rgba(0,0,0,0.4); position: relative;
@@ -207,16 +236,11 @@
   }
   .result-card.show { display: block; }
   #result-preview { width: 100%; border-radius: 10px; margin-bottom: 16px; max-height: 160px; object-fit: cover; }
-  .result-label { color: #99b8ff; font-size: 12px; margin-bottom: 10px; letter-spacing: 1px; }
-  .result-name-label { color: #cdd8ff; font-size: 11px; margin-bottom: 3px; }
-  .result-name { font-size: 18px; font-weight: 800; margin-bottom: 12px; }
-  .result-price-label { color: #cdd8ff; font-size: 11px; margin-bottom: 3px; }
-  .result-price { color: #7FFF00; font-size: 28px; font-weight: 900; }
-  .result-warn { color: #ffcc44; font-size: 12px; background: rgba(255,200,0,0.1); padding: 8px 12px; border-radius: 8px; margin-top: 10px; }
   .error-card {
     display: none; background: rgba(255,0,0,0.13); border: 1px solid rgba(255,100,100,0.4);
     border-radius: 14px; padding: 24px; text-align: center;
     color: #ff9999; max-width: 380px; line-height: 1.8; font-size: 14px; width: 100%;
+    white-space: pre-line;
   }
   .error-card.show { display: block; }
   .modal-footer {
@@ -243,9 +267,55 @@
     border: none; border-radius: 12px; color: #fff;
     font-size: 15px; font-weight: 900; cursor: pointer; box-shadow: 0 4px 16px rgba(45,184,0,0.4);
   }
+  .settings-inner { max-width: 480px; width: 100%; margin: 0 auto; padding: 20px; }
+  .settings-section-title { color: #99b8ff; font-size: 12px; font-weight: 700; letter-spacing: 1px; margin-bottom: 10px; margin-top: 20px; }
+  .settings-row { display: flex; align-items: center; gap: 10px; margin-bottom: 10px; }
+  .settings-input {
+    flex: 1; background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.2); border-radius: 8px;
+    padding: 8px 12px; color: #fff; font-size: 14px; outline: none;
+  }
 </style>
 </head>
 <body>
+
+<!-- Settings Modal -->
+<div id="settings-modal">
+  <div class="modal-header">
+    <div>
+      <div class="modal-header-title">⚙️ 設定</div>
+    </div>
+    <button class="btn-close" onclick="closeSettings()">✕ 閉じる</button>
+  </div>
+  <div class="modal-body" style="justify-content:flex-start;">
+    <div class="settings-inner">
+      <div class="settings-section-title">🔑 Anthropic APIキー</div>
+      <div class="settings-row">
+        <input type="password" id="api-key-input" class="settings-input" placeholder="sk-ant-...">
+        <button class="btn-small" onclick="saveApiKey()">保存</button>
+      </div>
+      <div id="apikey-status" style="color:#5577cc;font-size:11px;margin-bottom:16px;">APIキーを入力して「保存」を押してください</div>
+
+      <div class="settings-section-title">🧾 消費税率設定</div>
+      <div style="color:#cdd8ff;font-size:12px;margin-bottom:8px;">デフォルト税率（商品追加時の初期値）</div>
+      <div class="settings-row">
+        <div class="tax-toggle">
+          <button class="tax-btn" id="default-tax-8" onclick="setDefaultTax(8)">8%</button>
+          <button class="tax-btn" id="default-tax-10" onclick="setDefaultTax(10)">10%</button>
+        </div>
+      </div>
+      <div style="color:#cdd8ff;font-size:12px;margin-bottom:8px;margin-top:12px;">カスタム税率（8%・10%以外の場合）</div>
+      <div class="settings-row">
+        <div style="position:relative;flex:1;">
+          <input type="number" id="custom-tax-input" class="settings-input" placeholder="例: 12" style="padding-right:28px;">
+          <span style="position:absolute;right:10px;top:50%;transform:translateY(-50%);color:#99b8ff;font-size:13px;">%</span>
+        </div>
+        <button class="btn-small" onclick="saveCustomTax()">追加</button>
+      </div>
+      <div id="custom-tax-list" style="margin-top:8px;"></div>
+    </div>
+  </div>
+</div>
 
 <!-- Camera Modal -->
 <div id="camera-modal">
@@ -274,17 +344,15 @@
       </div>
     </div>
     <canvas id="camera-canvas" style="display:none;"></canvas>
-
     <div class="result-card" id="result-card">
       <img id="result-preview" alt="captured">
-      <div class="result-label">📋 読み取り結果</div>
-      <div class="result-name-label">商品名</div>
-      <div class="result-name" id="result-name">-</div>
-      <div class="result-price-label">価格（税抜）</div>
-      <div class="result-price" id="result-price">-</div>
-      <div class="result-warn" id="result-warn" style="display:none;">⚠️ 一部読み取れなかった項目は手動で補完してください</div>
+      <div style="color:#99b8ff;font-size:12px;margin-bottom:10px;letter-spacing:1px;">📋 読み取り結果</div>
+      <div style="color:#cdd8ff;font-size:11px;margin-bottom:3px;">商品名</div>
+      <div style="font-size:18px;font-weight:800;margin-bottom:12px;" id="result-name">-</div>
+      <div style="color:#cdd8ff;font-size:11px;margin-bottom:3px;">価格（税抜）</div>
+      <div style="color:#7FFF00;font-size:28px;font-weight:900;" id="result-price">-</div>
+      <div style="color:#ffcc44;font-size:12px;background:rgba(255,200,0,0.1);padding:8px 12px;border-radius:8px;margin-top:10px;display:none;" id="result-warn">⚠️ 一部読み取れなかった項目は手動で補完してください</div>
     </div>
-
     <div class="error-card" id="error-card">⚠️ <span id="error-msg"></span></div>
   </div>
   <div class="modal-footer" id="modal-footer">
@@ -301,9 +369,12 @@
         <div class="header-title">COSTCO CART</div>
         <div class="header-sub">ショッピング合計計算</div>
       </div>
-      <div class="header-total">
-        <div class="header-total-label">合計（税込）</div>
-        <div class="header-total-amount" id="header-total">¥0</div>
+      <div style="display:flex;align-items:center;gap:10px;margin-left:auto;">
+        <button onclick="openSettings()" style="background:rgba(255,255,255,0.1);border:none;border-radius:8px;color:#fff;padding:6px 10px;cursor:pointer;font-size:18px;">⚙️</button>
+        <div class="header-total">
+          <div class="header-total-label">合計（税込）</div>
+          <div class="header-total-amount" id="header-total">¥0</div>
+        </div>
       </div>
     </div>
     <div class="budget-bar-wrap" id="budget-bar-wrap" style="display:none;">
@@ -319,19 +390,6 @@
 </div>
 
 <div id="main">
-  <!-- API Key -->
-  <div class="card">
-    <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px;">
-      <span style="font-size:16px;">🔑</span>
-      <span style="color:#99b8ff;font-size:12px;font-weight:700;">Anthropic APIキー設定</span>
-    </div>
-    <div style="display:flex;gap:8px;align-items:center;">
-      <input type="password" id="api-key-input" placeholder="sk-ant-..." style="flex:1;background:rgba(255,255,255,0.08);border:1px solid rgba(255,255,255,0.2);border-radius:8px;padding:8px 12px;color:#fff;font-size:13px;outline:none;">
-      <button onclick="saveApiKey()" style="background:#0046BE;color:#fff;border:none;border-radius:8px;padding:8px 14px;cursor:pointer;font-weight:700;font-size:13px;">保存</button>
-    </div>
-    <div id="apikey-status" style="color:#5577cc;font-size:11px;margin-top:6px;">APIキーを入力して「保存」を押してください</div>
-  </div>
-
   <!-- Budget -->
   <div class="card">
     <div class="budget-display" id="budget-display" onclick="editBudget()">
@@ -365,6 +423,25 @@
       <input class="input-qty" type="number" id="item-qty" value="1" min="1" onkeydown="if(event.key==='Enter')addItem()">
       <button class="btn-add" onclick="addItem()">+</button>
     </div>
+
+    <!-- Tax rate toggle -->
+    <div class="tax-row">
+      <span class="tax-label">消費税:</span>
+      <div class="tax-toggle" id="tax-toggle-form"></div>
+    </div>
+
+    <!-- Discount -->
+    <div class="discount-row">
+      <span class="discount-label">割引:</span>
+      <div class="discount-type">
+        <button class="discount-type-btn active" id="disc-type-pct" onclick="setDiscountType('pct')">%</button>
+        <button class="discount-type-btn" id="disc-type-amt" onclick="setDiscountType('amt')">円</button>
+      </div>
+      <div class="discount-input-wrap">
+        <input class="input-discount" type="number" id="item-discount" placeholder="0" min="0">
+        <span class="discount-suffix" id="discount-suffix">%</span>
+      </div>
+    </div>
   </div>
 
   <!-- Item list -->
@@ -378,11 +455,15 @@
   <!-- Summary -->
   <div class="summary" id="summary" style="display:none;">
     <div class="summary-row">
-      <span class="summary-label">小計（税抜）</span>
+      <span class="summary-label">小計（税抜・割引後）</span>
       <span class="summary-val" id="sum-subtotal"></span>
     </div>
     <div class="summary-row">
-      <span class="summary-label">消費税（10%）</span>
+      <span class="summary-label">割引合計</span>
+      <span class="summary-val" id="sum-discount" style="color:#ff9944;"></span>
+    </div>
+    <div class="summary-row">
+      <span class="summary-label">消費税</span>
       <span class="summary-val" id="sum-tax"></span>
     </div>
     <div class="summary-total-row">
@@ -395,7 +476,6 @@
 </div>
 
 <script>
-const TAX = 0.10;
 const CATEGORIES = [
   { id:"food",     label:"食品",   emoji:"🥩", color:"#E8F5E9", accent:"#2E7D32" },
   { id:"daily",    label:"日用品", emoji:"🧴", color:"#E3F2FD", accent:"#1565C0" },
@@ -411,29 +491,103 @@ let idCnt = 1;
 let currentStream = null;
 let capturedDataUrl = null;
 let scanResult = null;
+let discountType = "pct"; // "pct" or "amt"
+let defaultTax = 10;
+let customTaxRates = [];
+let selectedTax = 10; // for current form
 
-// ── API Key ──
-function saveApiKey() {
-  const key = document.getElementById("api-key-input").value.trim();
-  if (!key.startsWith("sk-")) {
-    document.getElementById("apikey-status").textContent = "⚠️ sk-ant-... で始まるキーを入力してください";
-    document.getElementById("apikey-status").style.color = "#ff9999";
-    return;
-  }
-  localStorage.setItem("anthropic_api_key", key);
-  document.getElementById("apikey-status").textContent = "✅ 保存しました！";
-  document.getElementById("apikey-status").style.color = "#7FFF00";
+function yen(v) { return "¥" + Math.round(v).toLocaleString("ja-JP"); }
+
+// ── Tax Rates ──
+function getAllTaxRates() {
+  const base = [8, 10];
+  const all = [...new Set([...base, ...customTaxRates])].sort((a,b)=>a-b);
+  return all;
 }
 
-// Load saved key on startup
-window.addEventListener("load", () => {
-  const saved = localStorage.getItem("anthropic_api_key");
-  if (saved) {
-    document.getElementById("api-key-input").value = saved;
-    document.getElementById("apikey-status").textContent = "✅ 保存済みのキーがあります";
-    document.getElementById("apikey-status").style.color = "#7FFF00";
+function buildTaxToggles() {
+  const container = document.getElementById("tax-toggle-form");
+  container.innerHTML = "";
+  getAllTaxRates().forEach(rate => {
+    const btn = document.createElement("button");
+    btn.className = "tax-btn" + (rate === selectedTax ? " active" : "");
+    btn.textContent = rate + "%";
+    btn.onclick = () => selectTax(rate);
+    container.appendChild(btn);
+  });
+}
+
+function selectTax(rate) {
+  selectedTax = rate;
+  buildTaxToggles();
+}
+
+function setDefaultTax(rate) {
+  defaultTax = rate;
+  selectedTax = rate;
+  document.getElementById("default-tax-8").className = "tax-btn" + (rate === 8 ? " active" : "");
+  document.getElementById("default-tax-10").className = "tax-btn" + (rate === 10 ? " active" : "");
+  buildTaxToggles();
+  localStorage.setItem("default_tax", rate);
+}
+
+function saveCustomTax() {
+  const val = parseFloat(document.getElementById("custom-tax-input").value);
+  if (isNaN(val) || val <= 0 || val >= 100) return;
+  if (!customTaxRates.includes(val)) {
+    customTaxRates.push(val);
+    localStorage.setItem("custom_tax_rates", JSON.stringify(customTaxRates));
   }
-});
+  document.getElementById("custom-tax-input").value = "";
+  buildTaxToggles();
+  renderCustomTaxList();
+}
+
+function removeCustomTax(rate) {
+  customTaxRates = customTaxRates.filter(r => r !== rate);
+  localStorage.setItem("custom_tax_rates", JSON.stringify(customTaxRates));
+  if (selectedTax === rate) { selectedTax = defaultTax; }
+  buildTaxToggles();
+  renderCustomTaxList();
+}
+
+function renderCustomTaxList() {
+  const el = document.getElementById("custom-tax-list");
+  if (customTaxRates.length === 0) { el.innerHTML = ""; return; }
+  el.innerHTML = customTaxRates.map(r =>
+    `<span style="display:inline-flex;align-items:center;gap:4px;background:rgba(255,255,255,0.1);border-radius:6px;padding:4px 8px;margin:2px;font-size:12px;">
+      ${r}%
+      <button onclick="removeCustomTax(${r})" style="background:none;border:none;color:#ff6b6b;cursor:pointer;font-size:12px;padding:0;">✕</button>
+    </span>`
+  ).join("");
+}
+
+// ── Discount ──
+function setDiscountType(type) {
+  discountType = type;
+  document.getElementById("disc-type-pct").className = "discount-type-btn" + (type === "pct" ? " active" : "");
+  document.getElementById("disc-type-amt").className = "discount-type-btn" + (type === "amt" ? " active" : "");
+  document.getElementById("discount-suffix").textContent = type === "pct" ? "%" : "円";
+  document.getElementById("item-discount").placeholder = type === "pct" ? "0" : "0";
+}
+
+function calcDiscountedPrice(price, qty, discVal, discType) {
+  if (!discVal || discVal <= 0) return price * qty;
+  if (discType === "pct") {
+    return price * qty * (1 - discVal / 100);
+  } else {
+    return Math.max(0, price * qty - discVal);
+  }
+}
+
+function calcDiscountAmount(price, qty, discVal, discType) {
+  if (!discVal || discVal <= 0) return 0;
+  if (discType === "pct") {
+    return price * qty * (discVal / 100);
+  } else {
+    return Math.min(price * qty, discVal);
+  }
+}
 
 // ── Categories ──
 const catRow = document.getElementById("cat-row");
@@ -463,9 +617,6 @@ function selectCat(id) {
   });
 }
 
-// ── Format ──
-function yen(v) { return "¥" + Math.round(v).toLocaleString("ja-JP"); }
-
 // ── Budget ──
 function editBudget() {
   document.getElementById("budget-display").style.display = "none";
@@ -486,27 +637,68 @@ function addItem() {
   const name = document.getElementById("item-name").value.trim();
   const price = parseFloat(document.getElementById("item-price").value);
   const qty = parseInt(document.getElementById("item-qty").value) || 1;
+  const discVal = parseFloat(document.getElementById("item-discount").value) || 0;
   if (!name || isNaN(price) || price <= 0) return;
-  items.unshift({ id: idCnt++, name, price, qty, category: selectedCat, isNew: true });
+  items.unshift({
+    id: idCnt++, name, price, qty,
+    category: selectedCat,
+    taxRate: selectedTax,
+    discountType: discountType,
+    discountVal: discVal,
+    isNew: true
+  });
   document.getElementById("item-name").value = "";
   document.getElementById("item-price").value = "";
   document.getElementById("item-qty").value = "1";
+  document.getElementById("item-discount").value = "";
   document.getElementById("item-name").focus();
   render();
   setTimeout(() => { if (items.length) items[0].isNew = false; render(); }, 700);
 }
 
 function removeItem(id) { items = items.filter(i => i.id !== id); render(); }
+
 function updateQty(id, d) {
   items = items.map(i => i.id === id ? { ...i, qty: Math.max(1, i.qty + d) } : i);
   render();
 }
 
+function openDiscountEdit(id) {
+  const item = items.find(i => i.id === id);
+  if (!item) return;
+  const current = item.discountVal > 0 ? item.discountVal : "";
+  const type = item.discountType;
+  const suffix = type === "pct" ? "%" : "円";
+  const val = prompt(`割引を入力してください（${suffix}）\n0で割引なし`, current);
+  if (val === null) return;
+  const num = parseFloat(val) || 0;
+  items = items.map(i => i.id === id ? { ...i, discountVal: num } : i);
+  render();
+}
+
+function updateItemTax(id, rate) {
+  items = items.map(i => i.id === id ? { ...i, taxRate: rate } : i);
+  render();
+}
+
 // ── Render ──
 function render() {
-  const subtotal = items.reduce((s, i) => s + i.price * i.qty, 0);
-  const tax = subtotal * TAX;
-  const total = subtotal + tax;
+  let subtotalBeforeDiscount = 0;
+  let totalDiscount = 0;
+  let totalTax = 0;
+  let total = 0;
+
+  items.forEach(item => {
+    const basePrice = item.price * item.qty;
+    const discAmt = calcDiscountAmount(item.price, item.qty, item.discountVal, item.discountType);
+    const discountedPrice = basePrice - discAmt;
+    const taxAmt = discountedPrice * (item.taxRate / 100);
+    subtotalBeforeDiscount += basePrice;
+    totalDiscount += discAmt;
+    totalTax += taxAmt;
+    total += discountedPrice + taxAmt;
+  });
+
   const over = budget > 0 && total > budget;
   const remaining = budget - total;
 
@@ -538,19 +730,43 @@ function render() {
   } else {
     list.innerHTML = items.map(item => {
       const cat = CATEGORIES.find(c => c.id === item.category) || CATEGORIES[0];
+      const basePrice = item.price * item.qty;
+      const discAmt = calcDiscountAmount(item.price, item.qty, item.discountVal, item.discountType);
+      const discountedPrice = basePrice - discAmt;
+      const taxAmt = discountedPrice * (item.taxRate / 100);
+      const finalPrice = discountedPrice + taxAmt;
+      const hasDiscount = item.discountVal > 0;
+      const discLabel = item.discountType === "pct" ? `-${item.discountVal}%` : `-${yen(item.discountVal)}`;
+
+      const taxBtns = getAllTaxRates().map(rate =>
+        `<button onclick="updateItemTax(${item.id},${rate})" style="padding:2px 7px;border-radius:5px;border:none;cursor:pointer;font-size:11px;font-weight:700;background:${rate===item.taxRate?'#0046BE':'rgba(255,255,255,0.1)'};color:#fff;">${rate}%</button>`
+      ).join("");
+
       return `<div class="item ${item.isNew ? 'new' : ''}">
-        <div class="item-icon" style="background:${cat.color};">${cat.emoji}</div>
-        <div class="item-info">
-          <div class="item-name">${item.name}</div>
-          <div class="item-sub">${yen(item.price)} × ${item.qty}</div>
-        </div>
-        <div class="item-right">
-          <div class="item-total">${yen(item.price * item.qty)}</div>
-          <div class="item-btns">
-            <button class="btn-qty" onclick="updateQty(${item.id},-1)">−</button>
-            <button class="btn-qty" onclick="updateQty(${item.id},1)">＋</button>
-            <button class="btn-del" onclick="removeItem(${item.id})">✕</button>
+        <div class="item-top">
+          <div class="item-icon" style="background:${cat.color};">${cat.emoji}</div>
+          <div class="item-info">
+            <div class="item-name">${item.name}</div>
+            <div class="item-sub">
+              ${yen(item.price)} × ${item.qty}
+              ${hasDiscount ? `<span style="color:#ff9944;"> ${discLabel}</span>` : ""}
+              <span style="color:#5577cc;"> 税${item.taxRate}%</span>
+            </div>
           </div>
+          <div class="item-right">
+            ${hasDiscount ? `<div class="item-original">${yen(basePrice)}</div>` : ""}
+            <div class="item-total">${yen(finalPrice)}</div>
+            <div class="item-btns">
+              <button class="btn-qty" onclick="updateQty(${item.id},-1)">−</button>
+              <button class="btn-qty" onclick="updateQty(${item.id},1)">＋</button>
+              <button class="btn-discount-edit" onclick="openDiscountEdit(${item.id})">割引</button>
+              <button class="btn-del" onclick="removeItem(${item.id})">✕</button>
+            </div>
+          </div>
+        </div>
+        <div style="display:flex;align-items:center;gap:6px;margin-top:8px;padding-top:8px;border-top:1px solid rgba(255,255,255,0.06);">
+          <span style="color:#5577cc;font-size:11px;">税率:</span>
+          <div style="display:flex;gap:4px;">${taxBtns}</div>
         </div>
       </div>`;
     }).join("");
@@ -560,8 +776,16 @@ function render() {
   const sum = document.getElementById("summary");
   if (items.length > 0) {
     sum.style.display = "block";
-    document.getElementById("sum-subtotal").textContent = yen(subtotal);
-    document.getElementById("sum-tax").textContent = yen(tax);
+    const subtotalAfterDiscount = subtotalBeforeDiscount - totalDiscount;
+    document.getElementById("sum-subtotal").textContent = yen(subtotalAfterDiscount);
+    const discEl = document.getElementById("sum-discount");
+    if (totalDiscount > 0) {
+      discEl.textContent = "-" + yen(totalDiscount);
+      discEl.parentElement.style.display = "flex";
+    } else {
+      discEl.parentElement.style.display = "none";
+    }
+    document.getElementById("sum-tax").textContent = yen(totalTax);
     const st = document.getElementById("sum-total");
     st.textContent = yen(total);
     st.style.color = over ? "#ff6b6b" : "#7FFF00";
@@ -580,18 +804,40 @@ function render() {
   }
 }
 
+// ── Settings ──
+function openSettings() {
+  document.getElementById("settings-modal").classList.add("open");
+  document.getElementById("default-tax-8").className = "tax-btn" + (defaultTax === 8 ? " active" : "");
+  document.getElementById("default-tax-10").className = "tax-btn" + (defaultTax === 10 ? " active" : "");
+  renderCustomTaxList();
+}
+function closeSettings() {
+  document.getElementById("settings-modal").classList.remove("open");
+}
+
+// ── API Key ──
+function saveApiKey() {
+  const key = document.getElementById("api-key-input").value.trim();
+  if (!key.startsWith("sk-")) {
+    document.getElementById("apikey-status").textContent = "⚠️ sk-ant-... で始まるキーを入力してください";
+    document.getElementById("apikey-status").style.color = "#ff9999";
+    return;
+  }
+  localStorage.setItem("anthropic_api_key", key);
+  document.getElementById("apikey-status").textContent = "✅ 保存しました！";
+  document.getElementById("apikey-status").style.color = "#7FFF00";
+}
+
 // ── Camera ──
 function openCamera() {
   document.getElementById("camera-modal").classList.add("open");
   setPhase("preview");
   startCamera();
 }
-
 function closeCamera() {
   stopCamera();
   document.getElementById("camera-modal").classList.remove("open");
 }
-
 async function startCamera() {
   try {
     const stream = await navigator.mediaDevices.getUserMedia({
@@ -605,11 +851,9 @@ async function startCamera() {
     setPhase("error", "カメラへのアクセスが拒否されました。\nブラウザの設定でカメラを許可してください。");
   }
 }
-
 function stopCamera() {
   if (currentStream) { currentStream.getTracks().forEach(t => t.stop()); currentStream = null; }
 }
-
 function capture() {
   const video = document.getElementById("camera-video");
   const canvas = document.getElementById("camera-canvas");
@@ -621,20 +865,18 @@ function capture() {
   stopCamera();
   setPhase("captured");
 }
-
 function retake() {
   capturedDataUrl = null;
   scanResult = null;
   setPhase("preview");
   startCamera();
 }
-
 async function analyze() {
   setPhase("analyzing");
   try {
     const apiKey = document.getElementById("api-key-input").value.trim();
     if (!apiKey || !apiKey.startsWith("sk-")) {
-      setPhase("error", "APIキーが設定されていません。\n画面上部の「APIキー設定」にsk-ant-...で始まるキーを入力してください。");
+      setPhase("error", "APIキーが設定されていません。\n右上の⚙️設定からAPIキーを入力してください。");
       return;
     }
     const base64 = capturedDataUrl.split(",")[1];
@@ -643,8 +885,8 @@ async function analyze() {
       headers: {
         "Content-Type": "application/json",
         "x-api-key": apiKey,
-       "anthropic-version": "2023-06-01",
-       "anthropic-dangerous-direct-browser-access": "true"
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true"
       },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
@@ -662,24 +904,19 @@ async function analyze() {
       })
     });
     const data = await res.json();
-    if (data.error) {
-      setPhase("error", "APIエラー: " + data.error.message);
-      return;
-    }
+    if (data.error) { setPhase("error", "APIエラー: " + data.error.message); return; }
     const text = (data.content || []).map(c => c.text || "").join("");
     const clean = text.replace(/```json|```/g, "").trim();
     scanResult = JSON.parse(clean);
     document.getElementById("result-name").textContent = scanResult.name || "（読み取れませんでした）";
     document.getElementById("result-price").textContent = scanResult.price ? yen(scanResult.price) : "（読み取れませんでした）";
     document.getElementById("result-preview").src = capturedDataUrl;
-    const warn = document.getElementById("result-warn");
-    warn.style.display = (!scanResult.name || !scanResult.price) ? "block" : "none";
+    document.getElementById("result-warn").style.display = (!scanResult.name || !scanResult.price) ? "block" : "none";
     setPhase("done");
   } catch(e) {
     setPhase("error", "エラー内容: " + e.message);
   }
 }
-
 function confirmResult() {
   if (scanResult) {
     if (scanResult.name) document.getElementById("item-name").value = scanResult.name;
@@ -688,7 +925,6 @@ function confirmResult() {
   closeCamera();
   document.getElementById("item-name").focus();
 }
-
 function setPhase(phase, errMsg) {
   const video = document.getElementById("camera-video");
   const preview = document.getElementById("camera-preview");
@@ -699,32 +935,20 @@ function setPhase(phase, errMsg) {
   const footer = document.getElementById("modal-footer");
   const sub = document.getElementById("modal-sub");
   const viewfinder = document.getElementById("viewfinder");
-
-  // reset
-  video.style.display = "none";
-  preview.style.display = "none";
-  scanOverlay.style.display = "none";
-  analyzingOverlay.classList.remove("show");
-  resultCard.classList.remove("show");
-  errorCard.classList.remove("show");
+  video.style.display = "none"; preview.style.display = "none";
+  scanOverlay.style.display = "none"; analyzingOverlay.classList.remove("show");
+  resultCard.classList.remove("show"); errorCard.classList.remove("show");
   viewfinder.style.display = "none";
-
   const subs = { preview:"値札にカメラを向けて撮影してください", captured:"この画像を解析しますか？", analyzing:"AIが読み取り中...", done:"読み取り完了！内容を確認してください", error:"エラーが発生しました" };
   sub.textContent = subs[phase] || "";
-
   if (phase === "preview") {
-    viewfinder.style.display = "block";
-    video.style.display = "block";
-    scanOverlay.style.display = "flex";
+    viewfinder.style.display = "block"; video.style.display = "block"; scanOverlay.style.display = "flex";
     footer.innerHTML = '<button class="btn-capture" onclick="capture()">📸 撮影する</button>';
   } else if (phase === "captured") {
-    viewfinder.style.display = "block";
-    preview.style.display = "block";
+    viewfinder.style.display = "block"; preview.style.display = "block";
     footer.innerHTML = '<button class="btn-retake" onclick="retake()">🔄 撮り直す</button><button class="btn-analyze" onclick="analyze()">🔍 AIで読み取る</button>';
   } else if (phase === "analyzing") {
-    viewfinder.style.display = "block";
-    preview.style.display = "block";
-    analyzingOverlay.classList.add("show");
+    viewfinder.style.display = "block"; preview.style.display = "block"; analyzingOverlay.classList.add("show");
     footer.innerHTML = '';
   } else if (phase === "done") {
     resultCard.classList.add("show");
@@ -735,6 +959,21 @@ function setPhase(phase, errMsg) {
     footer.innerHTML = '<button class="btn-retake" onclick="retake()">🔄 もう一度試す</button>';
   }
 }
+
+// ── Init ──
+window.addEventListener("load", () => {
+  const savedKey = localStorage.getItem("anthropic_api_key");
+  if (savedKey) {
+    document.getElementById("api-key-input").value = savedKey;
+    document.getElementById("apikey-status").textContent = "✅ 保存済みのキーがあります";
+    document.getElementById("apikey-status").style.color = "#7FFF00";
+  }
+  const savedDefaultTax = localStorage.getItem("default_tax");
+  if (savedDefaultTax) { defaultTax = parseInt(savedDefaultTax); selectedTax = defaultTax; }
+  const savedCustomTax = localStorage.getItem("custom_tax_rates");
+  if (savedCustomTax) { customTaxRates = JSON.parse(savedCustomTax); }
+  buildTaxToggles();
+});
 
 render();
 </script>
