@@ -599,7 +599,11 @@ async function analyze() {
     const base64 = capturedDataUrl.split(",")[1];
     const res = await fetch("https://api.anthropic.com/v1/messages", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+         "Content-Type": "application/json",
+         "x-api-key": "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",
+         "anthropic-version": "2023-06-01"
+      },
       body: JSON.stringify({
         model: "claude-sonnet-4-20250514",
         max_tokens: 300,
