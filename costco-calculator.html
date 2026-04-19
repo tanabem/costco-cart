@@ -201,6 +201,7 @@
       <div style="color:#cdd8ff;font-size:12px;margin-bottom:8px;">デフォルト税率</div>
       <div class="settings-row">
         <div class="tax-toggle">
+          <button class="tax-btn" id="default-tax-0" onclick="setDefaultTax(0)">0%</button>
           <button class="tax-btn" id="default-tax-8" onclick="setDefaultTax(8)">8%</button>
           <button class="tax-btn" id="default-tax-10" onclick="setDefaultTax(10)">10%</button>
         </div>
@@ -450,7 +451,7 @@ function formatDateTime(iso) {
 
 // ── Tax ──
 function getAllTaxRates() {
-  return [...new Set([8, 10, ...customTaxRates])].sort((a,b)=>a-b);
+  return [...new Set([0, 8, 10, ...customTaxRates])].sort((a,b)=>a-b);
 }
 function buildTaxToggles() {
   const container = document.getElementById("tax-toggle-form");
@@ -765,6 +766,7 @@ function renderHistoryList() {
 // ── Settings ──
 function openSettings() {
   document.getElementById("settings-modal").classList.add("open");
+  document.getElementById("default-tax-0").className="tax-btn"+(defaultTax===0?" active":"");
   document.getElementById("default-tax-8").className="tax-btn"+(defaultTax===8?" active":"");
   document.getElementById("default-tax-10").className="tax-btn"+(defaultTax===10?" active":"");
   renderCustomTaxList();
